@@ -1,0 +1,9 @@
+/素材/
+.DS_Store
+**/.DS_Store
+.claude/
+_fontsheet.html
+draft-typo.html
+index-oldtown.html
+*.pyc
+__pycache__/

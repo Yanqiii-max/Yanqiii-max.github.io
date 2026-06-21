@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>沈彦祺 — 作品集</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300;400;500;600;700;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
+<style>
+  :root{
+    --paper:#EFEADD; --ink:#1B1916; --mute:#9C9384; --faint:#CFC8B8;
+    --cinnabar:#B23A2C; --acc:#B23A2C; --hair:rgba(27,25,22,.16); --mx:6.5vw;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{ background:var(--paper); color:var(--ink); font-family:"Noto Serif SC","EB Garamond",serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%}
+  .label{ font-family:"EB Garamond",serif; font-size:12px; letter-spacing:.28em; text-transform:uppercase; color:var(--mute); font-weight:400; }
+  ::selection{ background:var(--cinnabar); color:var(--paper) }
+
+  /* ===== chrome ===== */
+  .topbar{ position:fixed; top:0; left:0; right:0; z-index:40; display:flex; justify-content:space-between; align-items:baseline; padding:clamp(20px,2.6vw,34px) var(--mx) 16px; mix-blend-mode:multiply; }
+  .topbar .name{ font-size:15px; font-weight:500; letter-spacing:.04em }
+  .topbar .name em{ font-style:normal; color:var(--mute); margin-left:.5em; font-family:"EB Garamond",serif; letter-spacing:.22em; font-size:12px; text-transform:uppercase; }
+  .nav{ display:flex; gap:1.6em }
+  .nav a{ font-family:"EB Garamond",serif; font-size:13px; letter-spacing:.16em; text-transform:uppercase; color:var(--mute); transition:color .3s }
+  .nav a:hover{ color:var(--cinnabar) }
+
+  /* ===== hero ===== */
+  .stage{ min-height:100svh; padding:0 var(--mx); display:grid; grid-template-rows:1fr auto; }
+  .hero{ align-self:center; display:flex; flex-direction:column; gap:clamp(10px,1.4vw,22px); padding:14vh 0 4vh; }
+  .hero>*{ animation:up 1s cubic-bezier(.2,.7,.2,1) backwards }
+  .hero>*:nth-child(1){animation-delay:.05s}
+  .hero>*:nth-child(2){animation-delay:.18s}
+  .hero>*:nth-child(3){animation-delay:.34s}
+  .hero>*:nth-child(4){animation-delay:.5s}
+  @keyframes up{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+  .identity{ display:flex; align-items:flex-end; gap:.18em; line-height:.92 }
+  .pre{ font-size:clamp(14px,1.5vw,20px); letter-spacing:.1em; color:var(--ink); padding-bottom:.9em }
+  .slot{ position:relative; overflow:hidden; display:inline-block; vertical-align:bottom; line-height:1 }
+  .word{ display:inline-block; font-weight:500; font-size:clamp(3.6rem,17vw,14rem); line-height:1; letter-spacing:0; transform:translateY(0); will-change:transform,letter-spacing; transition:transform .52s cubic-bezier(.76,0,.24,1), letter-spacing .5s ease, font-weight .5s ease; }
+  .slot.swap .word{ transform:translateY(-108%) }
+  .slot.enter .word{ transform:translateY(108%); transition:none }
+  .dot{ color:var(--cinnabar); font-size:clamp(3rem,14vw,11rem); line-height:.92; transform:translateY(.02em) }
+  .sub{ max-width:42ch; text-wrap:balance; font-size:clamp(15px,1.25vw,19px); line-height:1.75; font-weight:300 }
+  .sub .accent{ color:var(--cinnabar) }
+  .roster{ display:flex; flex-wrap:wrap; gap:.1em 1.6em; margin-top:.4em }
+  .roster span{ font-family:"EB Garamond",serif; font-size:13px; letter-spacing:.12em; color:var(--faint); transition:color .35s; cursor:default }
+  .roster span.on{ color:var(--ink) }
+  .roster span:hover{ color:var(--cinnabar) }
+  .herofoot{ display:flex; justify-content:space-between; align-items:baseline; padding-bottom:22px; padding-top:16px; border-top:1px solid var(--hair) }
+  .scroll{ display:flex; align-items:center; gap:.8em; font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--mute); font-family:"EB Garamond",serif; cursor:pointer }
+  .scroll i{ width:30px; height:1px; background:var(--ink); display:inline-block; opacity:.5; animation:slide 2.4s ease-in-out infinite }
+  @keyframes slide{0%,100%{transform:scaleX(.4);transform-origin:left}50%{transform:scaleX(1);transform-origin:left}}
+
+  /* ===== sections ===== */
+  section{ padding:clamp(70px,12vh,160px) var(--mx) }
+  .shead{ display:flex; justify-content:space-between; align-items:baseline; border-bottom:1px solid var(--hair); padding-bottom:14px; margin-bottom:clamp(20px,4vh,54px) }
+  .shead h2{ font-weight:500; font-size:clamp(20px,2.4vw,30px); letter-spacing:.02em }
+  .reveal{ opacity:0; transform:translateY(22px); transition:opacity .9s ease, transform .9s ease }
+  .reveal.in{ opacity:1; transform:none }
+
+  /* ===== works index ===== */
+  .row{ display:grid; grid-template-columns:clamp(54px,6vw,92px) 1fr auto; align-items:baseline; gap:1.2em; padding:clamp(15px,2.6vh,34px) 0; border-bottom:1px solid var(--hair); cursor:pointer; opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease, padding-left .5s cubic-bezier(.76,0,.24,1); }
+  .works.in .row{ opacity:1; transform:none; transition-delay:calc(var(--i)*.05s), calc(var(--i)*.05s), 0s }
+  .works:hover .row{ opacity:.32 }
+  .works .row:hover{ opacity:1; padding-left:clamp(10px,1.8vw,30px) }
+  .row .num{ font-family:"EB Garamond",serif; font-size:clamp(15px,1.4vw,20px); color:var(--mute); letter-spacing:.04em; transition:color .35s }
+  .row .ttl{ font-size:clamp(28px,5vw,62px); font-weight:500; line-height:1.02; letter-spacing:-.01em; transition:color .35s }
+  .works .row:hover .ttl, .works .row:hover .num{ color:var(--racc) }
+  .row .meta{ font-family:"EB Garamond",serif; font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--mute); text-align:right; white-space:nowrap }
+
+  .preview{ position:fixed; top:0; left:0; z-index:20; width:clamp(190px,21vw,310px); aspect-ratio:4/5; object-fit:cover; pointer-events:none; opacity:0; transform:translate(-50%,-50%) rotate(-2.5deg) scale(.96); clip-path:inset(0 0 100% 0); transition:opacity .35s ease, transform .45s cubic-bezier(.2,.7,.2,1), clip-path .55s cubic-bezier(.76,0,.24,1); }
+  .preview.show{ opacity:1; transform:translate(-50%,-50%) rotate(-2.5deg) scale(1); clip-path:inset(0 0 0% 0) }
+
+  /* ===== about ===== */
+  .about{ display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); gap:clamp(28px,5vw,80px); align-items:start }
+  .about .portrait{ width:100%; aspect-ratio:3/4; object-fit:cover; filter:grayscale(.12) }
+  .bio p{ font-size:clamp(16px,1.4vw,21px); line-height:1.85; font-weight:300; margin-bottom:1.2em; max-width:46ch }
+  .bio p .accent{ color:var(--cinnabar) }
+  .contact{ margin-top:2.4em; border-top:1px solid var(--hair); padding-top:1.6em; display:grid; grid-template-columns:1fr 1fr; gap:1em 2em; max-width:46ch }
+  .contact .k{ display:block; font-family:"EB Garamond",serif; font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--mute); margin-bottom:.3em }
+  .contact .v{ font-size:15px }
+  .contact a.v:hover{ color:var(--cinnabar) }
+  footer.foot{ display:flex; justify-content:space-between; align-items:baseline; padding:30px var(--mx); border-top:1px solid var(--hair) }
+
+  /* ===== overlay shell ===== */
+  .overlay{ position:fixed; inset:0; z-index:60; background:var(--paper); overflow-y:auto; overflow-x:hidden; opacity:0; visibility:hidden; transition:opacity .5s ease; }
+  .overlay.open{ opacity:1; visibility:visible }
+  .ov-close{ position:fixed; top:clamp(18px,2.4vw,30px); right:var(--mx); z-index:62; font-family:"EB Garamond",serif; font-size:13px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink); cursor:pointer; background:none; border:none; mix-blend-mode:multiply; }
+  .ov-close:hover{ color:var(--acc) }
+  .ov-inner{ padding:clamp(72px,14vh,150px) var(--mx) 9vh; max-width:1600px; margin:0 auto }
+  .ov-num{ font-family:"EB Garamond",serif; color:var(--acc); letter-spacing:.1em; font-size:15px; display:block; margin-bottom:.35em }
+  .ov-title{ font-size:clamp(42px,8.5vw,118px); font-weight:500; line-height:.96; letter-spacing:-.015em }
+  .ov-meta{ margin-top:1.7em; border-top:1px solid var(--hair); padding-top:1.1em; font-family:"EB Garamond",serif; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--mute); line-height:2.2 }
+  .ov-links{ margin-top:1.6em; display:flex; flex-direction:column; gap:.7em; align-items:flex-start }
+  .ov-links a{ font-size:15px; border-bottom:1px solid var(--acc); padding-bottom:2px; transition:opacity .3s }
+  .ov-links a::after{ content:" ↗"; color:var(--acc) }
+  .ov-links a:hover{ opacity:.6 }
+  .ov-p{ font-size:clamp(15px,1.35vw,20px); line-height:1.85; font-weight:300; margin-bottom:1.1em }
+  .overlay.open .ov-inner>section>*{ animation:up .8s cubic-bezier(.2,.7,.2,1) backwards }
+  .overlay.open .ov-inner>section>*:nth-child(1){animation-delay:.06s}
+  .overlay.open .ov-inner>section>*:nth-child(2){animation-delay:.16s}
+  .overlay.open .ov-inner>section>*:nth-child(3){animation-delay:.26s}
+  .overlay.open .ov-inner>section>*:nth-child(4){animation-delay:.36s}
+  .overlay.open .ov-inner>section>*:nth-child(5){animation-delay:.46s}
+
+  /* ---- layout: reading ---- */
+  .lay-reading{ max-width:760px; margin:0 auto }
+  .lay-reading .read-head{ border-bottom:1px solid var(--hair); padding-bottom:clamp(20px,4vh,40px); margin-bottom:clamp(28px,5vh,52px) }
+  .read-body p{ font-size:clamp(16px,1.45vw,21px); line-height:1.95; font-weight:300; margin-bottom:1.3em; hanging-punctuation:first allow-end }
+  .dropcap{ float:left; font-size:4.4em; line-height:.74; font-weight:500; color:var(--acc); margin:.02em .14em 0 -.02em }
+  .read-figs{ display:flex; flex-wrap:wrap; gap:14px; margin-top:2.2em }
+  .read-figs img{ width:calc(50% - 7px); aspect-ratio:4/3; object-fit:cover; background:#e3ddcf }
+
+  /* ---- layout: object (museum) ---- */
+  .lay-object .obj-intro{ max-width:48ch; margin:1.4em 0 clamp(46px,9vh,110px) }
+  .plates{ display:flex; flex-direction:column; gap:clamp(54px,11vh,140px) }
+  .plate{ width:min(66%,780px); position:relative }
+  .plate:nth-child(odd){ align-self:flex-start }
+  .plate:nth-child(even){ align-self:flex-end; text-align:right }
+  .plate:first-child{ width:min(88%,1140px); align-self:center; text-align:center }
+  .plate img{ width:100%; background:#e3ddcf }
+  .plate figcaption{ margin-top:1em }
+  .pl-no{ font-family:"EB Garamond",serif; letter-spacing:.26em; text-transform:uppercase; font-size:11px; color:var(--mute); border-top:1px solid var(--acc); padding-top:.6em; display:inline-block }
+
+  /* ---- layout: gallery ---- */
+  .lay-gallery .gal-bar{ border-bottom:1px solid var(--hair); padding-bottom:clamp(20px,4vh,40px); margin-bottom:clamp(24px,4vh,46px) }
+  .gal-side{ max-width:54ch; margin-top:1.1em }
+  .masonry{ columns:2; column-gap:clamp(12px,1.6vw,22px) }
+  .masonry img{ width:100%; margin-bottom:clamp(12px,1.6vw,22px); break-inside:avoid; display:block; background:#e3ddcf }
+  @media(min-width:1100px){ .masonry{ columns:3 } }
+
+  /* ---- layout: specimen ---- */
+  .lay-specimen .spec-hero{ border-top:1px solid var(--hair); border-bottom:1px solid var(--hair); padding:clamp(22px,5vh,64px) 0; margin:1.1em 0 clamp(32px,5vh,60px); text-align:center; overflow:hidden }
+  .spec-big{ font-size:clamp(3.2rem,15vw,11rem); font-weight:500; line-height:.9; letter-spacing:.04em; display:inline-block; white-space:nowrap }
+  .spec-intro{ max-width:48ch; margin-bottom:clamp(34px,6vh,64px) }
+  .spec-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:clamp(16px,2vw,32px) }
+  .spec-grid img{ width:100%; display:block; background:#e3ddcf }
+  .spec-grid figcaption{ font-family:"EB Garamond",serif; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--mute); margin-top:.7em; border-top:1px solid var(--hair); padding-top:.5em }
+
+  /* ---- layout: cinema ---- */
+  .lay-cinema .filmband{ background:#15130E; color:#EDE7DB; margin:0 calc(-1*var(--mx)); padding:clamp(34px,6vw,82px) var(--mx) }
+  .filmband .ov-num{ color:#D88B7E }
+  .filmband .ov-title{ color:#F1EBDF; margin-bottom:clamp(26px,4vh,48px) }
+  .cine-video{ width:100%; max-width:1100px; display:block; margin:0 auto clamp(22px,3vw,40px); background:#000 }
+  .filmstrip{ display:flex; gap:10px; overflow-x:auto; padding-bottom:12px }
+  .filmstrip img{ height:clamp(200px,30vh,330px); width:auto; flex:0 0 auto; background:#222 }
+  .filmstrip::-webkit-scrollbar{ height:6px } .filmstrip::-webkit-scrollbar-thumb{ background:#48433a }
+  .cine-text{ max-width:56ch; margin:clamp(36px,6vh,72px) auto 0 }
+
+  /* ---- layout: ring (painting carousel) ---- */
+  .lay-ring .ring-head{ border-bottom:1px solid var(--hair); padding-bottom:clamp(18px,3vh,34px) }
+  .ring-intro{ max-width:50ch; margin-top:1.1em }
+  .ring-hint{ font-family:"EB Garamond",serif; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--acc); margin-top:1em }
+  .ring-stage{ perspective:1600px; height:clamp(420px,62vh,660px); position:relative; display:flex; align-items:center; justify-content:center; margin-top:clamp(10px,2vh,26px) }
+  .ring{ position:relative; width:1px; height:1px; transform-style:preserve-3d; animation:spin 64s linear infinite }
+  .ring:hover{ animation-play-state:paused }
+  @keyframes spin{ to{ transform:rotateY(360deg) } }
+  .card3d{ position:absolute; left:0; top:0; width:clamp(122px,12vw,168px); height:clamp(162px,16vw,224px); transform:translate(-50%,-50%) rotateY(var(--a)) translateZ(var(--r)); transition:transform .6s cubic-bezier(.2,.7,.2,1); cursor:pointer; backface-visibility:hidden }
+  .card3d img{ width:100%; height:100%; object-fit:cover; display:block; background:#e3ddcf; box-shadow:0 10px 34px rgba(0,0,0,.28) }
+  .card3d:hover{ transform:translate(-50%,-50%) rotateY(var(--a)) translateZ(calc(var(--r) + 160px)) scale(1.16); z-index:6 }
+
+  /* ---- layout: cosmos (movie galaxies, two-level) ---- */
+  .lay-cosmos .cosmos-head{ border-bottom:1px solid var(--hair); padding-bottom:clamp(18px,3vh,34px) }
+  .cosmos-intro{ max-width:56ch; margin-top:1.1em }
+  .cosmos-hint{ font-family:"EB Garamond",serif; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--acc); margin-top:1em }
+  .galaxy-space{ position:relative; margin:clamp(20px,4vh,46px) calc(-1*var(--mx)) 0; height:clamp(640px,94vh,1040px); overflow:hidden; background:radial-gradient(circle at 50% 42%, #211d33 0%, #15121f 58%, #0c0a14 100%) }
+  @keyframes cspin{ to{ transform:rotate(360deg) } }
+  @keyframes cspinr{ to{ transform:rotate(-360deg) } }
+  @keyframes twinkle{ 0%,100%{ box-shadow:0 0 16px 4px rgba(240,200,120,.5),0 0 46px 12px rgba(220,160,70,.22) } 50%{ box-shadow:0 0 22px 6px rgba(240,200,120,.7),0 0 60px 18px rgba(220,160,70,.32) } }
+  @keyframes drift{ 0%,100%{ transform:translate(-50%,-50%) } 50%{ transform:translate(-50%,calc(-50% - 12px)) } }
+  .star{ position:absolute; transform:translate(-50%,-50%) }
+  .star-inner{ position:relative; cursor:pointer; animation:drift var(--dr,8s) ease-in-out infinite }
+  .star-orb{ width:var(--ss); height:var(--ss); border-radius:50%; margin:0 auto; background:radial-gradient(circle at 38% 32%, #fff 0%, #ffe7b0 26%, #e6ab46 58%, #9c6a1f 100%); animation:twinkle 4.5s ease-in-out infinite; transition:transform .5s }
+  .star-name{ text-align:center; margin-top:12px; color:#efe7d6; font-size:15px; font-weight:500; letter-spacing:.03em; white-space:nowrap; transition:opacity .4s; pointer-events:none }
+  .star-name span{ display:block; font-family:"EB Garamond",serif; font-size:11px; letter-spacing:.2em; color:#a89e88; margin-top:3px }
+  .star-inner:hover .star-orb{ transform:scale(1.14) }
+  .psys{ position:absolute; left:50%; top:calc(var(--ss)/2); transform:translate(-50%,-50%); width:0; height:0; opacity:0; pointer-events:none }
+  @keyframes psysin{ from{ opacity:0 } to{ opacity:1 } }
+  .orbit2{ position:absolute; left:0; top:0; width:0; height:0; animation:cspin var(--dur) linear infinite; animation-delay:var(--delay); animation-play-state:paused }
+  .planet2{ position:absolute; left:var(--orad); top:0; width:86px; height:86px; max-width:none; margin:-43px 0 0 -43px; border-radius:50%; object-fit:cover; cursor:pointer; box-shadow:0 6px 22px rgba(0,0,0,.55); animation:cspinr var(--dur) linear infinite; animation-delay:var(--delay); animation-play-state:paused; transition:transform .4s; background:#e3ddcf }
+  .planet2:hover{ transform:scale(1.32); z-index:3 }
+  .galaxy-space.open .star:not(.active){ opacity:.07; pointer-events:none; filter:saturate(.3) }
+  .galaxy-space.open .star.active{ z-index:5 }
+  .star.active .star-inner{ animation:none }
+  .star.active .star-orb{ transform:scale(1.2) }
+  .star.active .psys{ opacity:1; pointer-events:auto }
+  .star.active .orbit2, .star.active .planet2{ animation-play-state:running }
+  .star.active:hover .orbit2, .star.active:hover .planet2{ animation-play-state:paused }
+  .star.active .star-name{ opacity:.45 }
+  .galaxy-back{ position:absolute; top:18px; left:var(--mx); z-index:8; background:none; border:1px solid rgba(239,231,214,.4); color:#efe7d6; font-family:"EB Garamond",serif; font-size:12px; letter-spacing:.12em; padding:8px 16px; border-radius:8px; cursor:pointer; opacity:0; pointer-events:none; transition:opacity .4s }
+  .galaxy-space.open .galaxy-back{ opacity:1; pointer-events:auto }
+
+  /* ---- layout: brand (website CTA) ---- */
+  .lay-brand .brand-head{ border-bottom:1px solid var(--hair); padding-bottom:clamp(20px,4vh,40px) }
+  .brand-body{ max-width:48ch; margin:1.4em 0 clamp(50px,10vh,120px) }
+  .brand-cta{ display:block; border-top:1px solid var(--hair); border-bottom:1px solid var(--hair); padding:clamp(30px,7vh,80px) 0; text-align:center; transition:background .4s }
+  .brand-cta:hover{ background:#e7e0cf }
+  .brand-cta-sm{ display:block; font-family:"EB Garamond",serif; font-size:13px; letter-spacing:.26em; text-transform:uppercase; color:var(--mute) }
+  .brand-cta-lg{ display:block; margin-top:.3em; font-size:clamp(2.6rem,8vw,7rem); font-weight:500; color:var(--acc); letter-spacing:-.01em; line-height:1.05 }
+  .brand-cta:hover .brand-cta-lg i{ margin-left:.18em }
+  .brand-cta-lg i{ transition:margin .4s }
+
+  /* ---- layout: jewel ---- */
+  .lay-jewel .jw-head{ border-bottom:1px solid var(--hair); padding-bottom:clamp(18px,3vh,34px) }
+  .jw-intro{ max-width:50ch; margin-top:1.1em }
+  .jw-cuts{ display:flex; flex-wrap:wrap; justify-content:center; gap:clamp(20px,4vw,70px); margin:clamp(40px,8vh,90px) 0 }
+  .jw-cut{ width:min(46%,520px); object-fit:contain; filter:drop-shadow(0 30px 40px rgba(60,45,20,.22)) }
+  .jw-culture{ max-width:40ch; margin:0 auto clamp(40px,8vh,90px) }
+  .jw-culture p{ font-size:clamp(15px,1.35vw,19px); line-height:2; font-weight:300; margin-bottom:1.1em; hanging-punctuation:first }
+  .jw-culture p:first-child{ font-size:clamp(20px,2.4vw,30px); font-weight:400; text-align:center; color:var(--acc) }
+  .jw-heroes{ display:flex; flex-direction:column; gap:clamp(14px,2vw,26px) }
+  .jw-hero{ width:100%; display:block; cursor:pointer; background:#1a1a1a }
+  .jw-beltwrap{ margin:clamp(46px,9vh,110px) calc(-1*var(--mx)) 0; padding:clamp(30px,5vw,60px) 0; background:#16140f; overflow:hidden }
+  .jw-belt-label{ text-align:center; font-family:"EB Garamond",serif; font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:#a89e88; margin-bottom:clamp(20px,3vh,36px) }
+  .belt{ perspective:1300px; overflow:hidden }
+  .belt-track{ display:flex; gap:clamp(24px,3vw,50px); width:max-content; padding:30px var(--mx); animation:belt 30s linear infinite; transform-style:preserve-3d }
+  .belt:hover .belt-track{ animation-play-state:paused }
+  @keyframes belt{ to{ transform:translateX(-50%) } }
+  .belt-card{ flex:0 0 auto; width:clamp(200px,20vw,300px); aspect-ratio:3/4; transform:rotateY(-26deg); transition:transform .5s; cursor:pointer }
+  .belt-card img{ width:100%; height:100%; object-fit:cover; display:block; box-shadow:-14px 16px 40px rgba(0,0,0,.5) }
+  .belt-card:hover{ transform:rotateY(0) scale(1.05); z-index:3 }
+  .jw-cert{ margin-top:clamp(46px,9vh,110px); text-align:center }
+  .jw-cert img{ width:min(46%,340px); cursor:pointer; box-shadow:0 14px 40px rgba(0,0,0,.16) }
+  .jw-cert span{ display:block; margin-top:1em; font-family:"EB Garamond",serif; font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--mute) }
+
+  /* ---- layout: flip (magazine reader) ---- */
+  .lay-flip .flip-head{ border-bottom:1px solid var(--hair); padding-bottom:clamp(18px,3vh,34px) }
+  .flip-intro{ max-width:54ch; margin:1.1em 0 1.8em }
+  .flip-books{ display:flex; gap:14px; flex-wrap:wrap; margin-bottom:clamp(24px,4vh,46px) }
+  .flip-book{ font-family:inherit; font-size:15px; color:var(--ink); background:none; border:1px solid var(--hair); padding:10px 20px; border-radius:8px; cursor:pointer; transition:.3s }
+  .flip-book.on{ border-color:var(--acc); color:var(--acc) }
+  .flip-book:hover{ border-color:var(--acc) }
+  .flip-stage-wrap{ display:flex; justify-content:center; min-height:440px }
+  .flipbook{ width:min(98%,1000px); transition:transform .5s ease }
+  .flipbook .stf__item, .flipbook img{ background:#cfc8b9 }
+  .flipbook .page{ background:#cfc8b9; overflow:hidden }
+  .flipbook .page img{ width:100%; height:100%; object-fit:cover; display:block }
+  .flip-controls{ display:flex; align-items:center; justify-content:center; gap:clamp(16px,3vw,42px); margin-top:1.8em }
+  .flip-controls button{ background:none; border:1px solid var(--hair); color:var(--ink); padding:9px 20px; border-radius:8px; font-family:inherit; font-size:14px; cursor:pointer; transition:.3s }
+  .flip-controls button:hover{ border-color:var(--acc); color:var(--acc) }
+  .flip-count{ font-family:"EB Garamond",serif; font-size:13px; letter-spacing:.2em; color:var(--mute); min-width:96px; text-align:center }
+
+  /* ---- layout: slides (auto carousel) ---- */
+  .lay-slides .sl-head{ border-bottom:1px solid var(--hair); padding-bottom:clamp(18px,3vh,34px) }
+  .sl-intro{ max-width:50ch; margin:1.1em 0 clamp(24px,4vh,46px) }
+  .sl-stage{ position:relative; width:100%; aspect-ratio:16/10; background:#e3ddcf; overflow:hidden }
+  .slide{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .8s ease; cursor:zoom-in }
+  .slide.on{ opacity:1 }
+  .sl-prev,.sl-next{ position:absolute; top:50%; transform:translateY(-50%); background:rgba(20,18,14,.4); border:none; color:#fff; width:50px; height:64px; font-size:30px; cursor:pointer; opacity:0; transition:opacity .3s; z-index:2 }
+  .sl-stage:hover .sl-prev,.sl-stage:hover .sl-next{ opacity:1 }
+  .sl-prev{ left:0 } .sl-next{ right:0 }
+  .sl-dots{ display:flex; gap:10px; justify-content:center; margin-top:1.2em }
+  .slide-dot{ width:8px; height:8px; border-radius:50%; border:none; background:var(--faint); cursor:pointer; padding:0; transition:.3s }
+  .slide-dot.on{ background:var(--acc); transform:scale(1.3) }
+
+  /* ===== lightbox ===== */
+  .lightbox{ position:fixed; inset:0; z-index:75; background:rgba(18,16,12,.93); display:flex; align-items:center; justify-content:center; opacity:0; visibility:hidden; transition:opacity .35s; }
+  .lightbox.open{ opacity:1; visibility:visible }
+  .lb-img{ max-width:92vw; max-height:88vh; object-fit:contain; box-shadow:0 24px 80px rgba(0,0,0,.55) }
+  .lb-close,.lb-prev,.lb-next{ position:absolute; background:none; border:none; color:#EDE7DB; cursor:pointer; font-family:"EB Garamond",serif; line-height:1; }
+  .lb-close{ top:24px; right:var(--mx); font-size:30px; letter-spacing:.1em }
+  .lb-prev,.lb-next{ top:50%; transform:translateY(-50%); font-size:52px; width:60px; height:90px; opacity:.65; transition:opacity .3s }
+  .lb-prev:hover,.lb-next:hover,.lb-close:hover{ opacity:1 }
+  .lb-prev{ left:1.5vw } .lb-next{ right:1.5vw }
+  .lb-count{ position:absolute; bottom:22px; left:0; right:0; text-align:center; color:#C9BFAD; font-family:"EB Garamond",serif; font-size:13px; letter-spacing:.22em }
+
+  /* ===== custom cursor ===== */
+  .cursor{ position:fixed; top:0; left:0; width:7px; height:7px; border-radius:50%; background:var(--ink); pointer-events:none; z-index:90; transform:translate(-50%,-50%); opacity:0; transition:width .25s, height .25s, opacity .25s, background .25s, border-color .25s; }
+  body.curon .cursor{ opacity:.55 }
+  .cursor.big{ width:48px; height:48px; background:transparent; border:1.5px solid currentColor; opacity:1 }
+
+  @media(hover:none){ .cursor,.preview{ display:none } }
+  @media (max-width:860px){
+    .about{ grid-template-columns:1fr; gap:28px }
+    .read-figs img{ width:100% }
+    .plate{ width:100% }
+  }
+  @media (max-width:620px){
+    .topbar .name em{ display:none } .nav{ gap:1em } .row .meta{ display:none } .contact{ grid-template-columns:1fr }
+    .masonry{ columns:1 }
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{ animation:none!important } html{ scroll-behavior:auto } .reveal{ opacity:1; transform:none } .row{ opacity:1; transform:none } .scroll i{ animation:none }
+  }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="name">沈彦祺<em>Shen Yanqi</em></div>
+    <nav class="nav"><a href="#works">作品</a><a href="#about">关于</a></nav>
+  </div>
+
+  <main class="stage">
+    <section class="hero">
+      <div class="label" style="margin-left:.12em">浙江传媒学院 · 戏剧影视文学 · 专业第一</div>
+      <div class="identity">
+        <span class="pre">我是一名</span>
+        <span class="slot"><span class="word" id="word">导演</span></span>
+        <span class="dot">.</span>
+      </div>
+      <p class="sub">从纸页到银幕，从陶土到金石，从像素到字形——<br>我用<span class="accent">所有媒介</span>，讲同一个故事。</p>
+      <div class="roster" id="roster"></div>
+    </section>
+    <div class="herofoot">
+      <div class="label">Base 北京 / 杭州</div>
+      <div class="scroll" onclick="document.getElementById('works').scrollIntoView()">向下 · 14 件作品 <i></i></div>
+    </div>
+  </main>
+
+  <section id="works">
+    <div class="shead reveal"><h2>作品索引</h2><span class="label">Selected works · 2023—2026</span></div>
+    <div class="works" id="worksList"></div>
+  </section>
+
+  <section id="about">
+    <div class="shead reveal"><h2>关于</h2><span class="label">About / Contact</span></div>
+    <div class="about reveal">
+      <img class="portrait" id="portrait" alt="沈彦祺">
+      <div class="bio">
+        <p>沈彦祺，2005 年生，浙江传媒学院文学院戏剧影视文学专业 2023 级，<span class="accent">专业年级第一</span>。我习惯在不同的媒介之间往返——写论文，也拍纪录片；做陶瓷与珠宝，也设计字体与杂志；写影评，也写代码。</p>
+        <p>对我而言它们并不矛盾：每一种媒介，都是讲同一个故事的不同语法。我关心的，始终是人如何在器物、影像与文字里安放欲望与记忆。</p>
+        <div class="contact">
+          <div><span class="k">Email</span><a class="v" href="mailto:1971495469@qq.com">1971495469@qq.com</a></div>
+          <div><span class="k">WeChat</span><span class="v">syq1971495469</span></div>
+          <div><span class="k">Phone</span><span class="v">199 0128 2799</span></div>
+          <div><span class="k">Base</span><span class="v">北京 / 杭州</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot reveal"><span class="label">© 2026 沈彦祺</span><span class="label">用所有媒介 · 讲同一个故事</span></footer>
+
+  <img class="preview" id="preview" alt="">
+  <div class="cursor" id="cursor"></div>
+  <div class="overlay" id="overlay"><button class="ov-close" id="ovClose">关闭 · Close ×</button><div class="ov-inner" id="ovInner"></div></div>
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" id="lbClose" aria-label="关闭">×</button>
+    <button class="lb-prev" id="lbPrev" aria-label="上一张">‹</button>
+    <img class="lb-img" id="lbImg" alt="">
+    <button class="lb-next" id="lbNext" aria-label="下一张">›</button>
+    <span class="lb-count" id="lbCount"></span>
+  </div>
+
+<script>
+  const enc = s => encodeURI('min/'+s);
+  const F = {
+    die:'素材/导演纪录片《蝶戏蛟龙》入围2025年澳门国际微电影节/',
+    cer:'素材/陶瓷作品获第十二届“大地杯”中国陶瓷创新与设计大赛 金奖、第二十届中国(深圳)国际文化产业博览交易会“中国工艺美术文化创意大赛” 铜奖/',
+    jew:'素材/珠宝作品获奖/', pnt:'素材/绘画作品/', fnt:'素材/字体设计/', mag:'素材/杂志排版/_covers/', aig:'素材/AIGC视觉大片/',
+    pap:'素材/4篇国内外论文一作/', mit:'素材/MIT科研项目A+成绩/',
+    wx :'素材/公众号文章：《白日焰火》|  性、欲、非人与暴力（浏览量30659）；如懿念叨了一辈子的《墙头马上》真是讲的爱情吗？（浏览量38119）/',
+    mei:'素材/“梅谱”公众号街头采访栏目负责人/', ins:'素材/影石线上实习爆款短视频创作者/', cup:'素材/2026年“挑战杯”浙江省银奖负责人/', me :'素材/基本信息/'
+  };
+  const G=(b,a)=>a.map(n=>b+n);
+  const THEME = {
+    '纪录片':{a:'#B23A2C',l:'cinema'}, '影像':{a:'#B23A2C',l:'cinema'},
+    '品牌':{a:'#8C6A39',l:'gallery'}, '网站':{a:'#8C6A39',l:'brand'}, '工艺':{a:'#4F7A6F',l:'object'},
+    '视觉':{a:'#9A6A38',l:'gallery'}, '设计':{a:'#355C77',l:'specimen'},
+    '研究':{a:'#6A5A78',l:'reading'}, '文字':{a:'#6A5A78',l:'reading'}, '项目':{a:'#B23A2C',l:'reading'}
+  };
+  const theme = w => THEME[w.cat.split('/')[0].trim()] || {a:'#B23A2C',l:'reading'};
+
+  const works = [
+    { n:'蝶戏蛟龙', cat:'纪录片 / Film', year:'2025', cover:F.die+'海报.jpg',
+      desc:['我执导的纪录片，入围 2025 年澳门国际微电影节。','影片以陶瓷文化为题，在窑火与匠人之间，寻找一种当代的东方叙事。我同时为它做了一支同名互动小游戏，让观众用另一种方式走进这个故事。'],
+      meta:['导演 / Director','入围 · 2025 澳门国际微电影节'], links:[['观看互动小游戏','https://diexijiaolonggame.netlify.app/']],
+      video:F.die+'纪录片.mp4',
+      gallery:[F.die+'剧照1.JPG',F.die+'剧照2.JPG',F.die+'剧照3.JPG',F.die+'剧照4.JPG',F.die+'剧照5.JPG',F.die+'剧照6.JPG',F.die+'入围证书.jpg'] },
+    { n:'鈺瓷士', cat:'网站 / Website', year:'2026', cover:F.mag+'鈺瓷士.pdf.png',
+      desc:['我为陶瓷主题独立搭建的一个网站。','从视觉、器物年鉴的编排到前端代码实现，由我一人从概念做到上线。'],
+      meta:['网站 / 视觉 / 前端','独立设计 + 开发'], links:[['进入网站','https://yucishi.netlify.app/']],
+      gallery:[] },
+    { n:'陶瓷器物', cat:'工艺 / Ceramics', year:'2024', cover:F.cer+'3L3A6840.jpg',
+      desc:['陶瓷创作系列，获第十二届「大地杯」中国陶瓷创新与设计大赛金奖；并获第二十届深圳文博会「中国工艺美术文化创意大赛」铜奖。','在泥与釉的偶然里，寻找可控与不可控之间的平衡。'],
+      meta:['大地杯 · 金奖','文博会 · 铜奖'],
+      gallery:[F.cer+'3L3A6840.jpg',F.cer+'3L3A6905.jpg',F.cer+'3L3A6915.jpg',F.cer+'3L3A6919.jpg',F.cer+'大地杯金奖内页_副本.jpg',F.cer+'中国工艺美术文化创意大赛铜奖_副本.jpg'] },
+    { n:'珠宝设计', cat:'工艺 / Jewelry', year:'2025', cover:F.jew+'cut/3L3A0052_副本.png', lay:'jewel',
+      desc:['首饰与珠宝设计作品。代表作《灵蛇护宝》获 第二十届中国（深圳）国际文化产业博览交易会「中国工艺美术文化创意大赛」银奖。'],
+      culture:['蛇，是横跨人类文明的古老符号。','在中国，灵蛇衔珠、盘绕化龙，是守护与升腾；古埃及法老额前的圣蛇，是王权与神性的印记；古希腊医神阿斯克勒庇俄斯的蛇杖，象征治愈与重生；印度神话里的那伽（Nāga）盘踞水底，守护宝藏与智慧。','《灵蛇护宝》把这条游走于世界各文明的灵蛇，缠绕成可佩戴的当代结构——让传说，落在指间与腕上。'],
+      meta:['珠宝 / 首饰设计','《灵蛇护宝》· 文博会银奖 · 2024'],
+      cut:G(F.jew,['cut/3L3A0052_副本.png','cut/3L3A0091_副本.png']),
+      hero:G(F.jew,['3L3A8543_副本.jpg','3L3A9749_副本.jpg']),
+      models:G(F.jew,['jimeng-2026-01-30-5599-生成不同景别、角度的图片_副本.png','jimeng-2026-01-30-8676-生成不同景别、角度的图片_副本.png','jimeng-2026-01-30-9461-让一个黑人模特戴上参考图中的珠宝手镯，大师级别深邃光影构图，高级感审美_副本.png','jimeng-2026-02-02-5756-生成不同角度、景别、姿态的图，大师级构图，高级感审美_副本.png']),
+      cert:F.jew+'53c68a80d2321b7800d118bbcaf82abb.jpg',
+      gallery:[] },
+    { n:'视觉大片', cat:'视觉 / AIGC', year:'2026', cover:F.aig+'图片 1.jpg',
+      desc:['以 AIGC 为工具创作的珠宝高级时装影像。','在虚拟模特与真实首饰之间，探索光影、构图与高级感审美的边界——技术只是笔，审美才是手。'],
+      meta:['AIGC / 视觉创作','珠宝 × 时装大片 · 共 27 张'],
+      gallery:G(F.aig,['图片 1.jpg','图片 2.jpg','6.png','图片 3.png','图片 4.png','图片 5.png','图片 7.png','图片 8.png','图片 9.png','图片 10.png','图片 11.png','图片 12.png','图片 13.png','图片 14.png','jimeng-2026-01-30-4901-让一个真人中国模特戴上参考图中的珠宝手镯，大师级别构图，高级感审美_副本.png','jimeng-2026-01-30-8676-生成不同景别、角度的图片_副本.png','jimeng-2026-01-30-9461-让一个黑人模特戴上参考图中的珠宝手镯，大师级别深邃光影构图，高级感审美_副本.png','jimeng-2026-01-31-2610-让一个欧美男模特戴上戒指，大师级构图，高级审美_副本.png','jimeng-2026-01-31-3219-生成不同景别、角度、姿势的图，大师级创意，优雅高级审美感_副本.png','jimeng-2026-01-31-5145-生成不同景别、角度的图_副本.png','jimeng-2026-01-31-6017-让一个北欧模特戴上参考图中的耳环，大师级别构图，高级感审美_副本.png','jimeng-2026-01-31-7424-让一个比利时模特戴上参考图中的珠宝手镯，模特手摸黑金巨蟒大师级别构图，高级感审美_副本.png','jimeng-2026-01-31-8452-让一个穿着黑色礼服，带着黑色手套，头戴黑色大礼帽的英国模特戴上手镯，大师级构图和..._副本.png','jimeng-2026-02-02-4311_副本.png','jimeng-2026-02-02-5756-生成不同角度、景别、姿态的图，大师级构图，高级感审美_副本.png','jimeng-2026-02-02-5902-给图1的手腕戴上图2的手镯_副本.png','jimeng-2026-02-02-6384-给图1的手腕戴上图2的手镯_副本.png']) },
+    { n:'绘画', cat:'视觉 / Painting', year:'2023—', cover:F.pnt+'IMG_0280.PNG', lay:'ring',
+      desc:['数字与手绘并行的绘画练习与创作。','它们是其它一切创作的底色——颜色、构图与情绪最初都在这里发生。'],
+      meta:['数字绘画 / 插画 · 共 18 幅'],
+      gallery:G(F.pnt,['IMG_0280.PNG','IMG_0268.PNG','IMG_0262.PNG','IMG_0266.PNG','IMG_0270.PNG','IMG_0277.PNG','IMG_0289.PNG','IMG_0258.PNG','IMG_0259.PNG','IMG_0260.PNG','IMG_0261.PNG','IMG_0263.PNG','IMG_0264.PNG','IMG_0265.PNG','IMG_0267.PNG','IMG_0269.PNG','IMG_0278.PNG','IMG_0279.PNG']) },
+    { n:'字体设计', cat:'设计 / Type', year:'2023—', cover:F.fnt+'IMG_0091.PNG', lay:'cosmos',
+      desc:['以电影为名的字形设计——每一部电影，都是一个字体星系。','远看是一片标着片名的恒星；点进任一颗，便看见绕着它旋转的小行星，那是我为这部电影做的字体设计。'],
+      meta:['字体 / 字形设计 · 11 个电影星系 · 34 款'],
+      galaxies:[
+        {n:'白日梦想家', imgs:['IMG_0071.JPG','IMG_0074.JPG','IMG_0076.JPG','IMG_0078.JPG']},
+        {n:'赎罪', imgs:['IMG_0091.PNG','IMG_0092.PNG','IMG_0093.PNG','IMG_0202.PNG']},
+        {n:'怦然心动', imgs:['IMG_0123.PNG','IMG_0124.PNG','IMG_0125.PNG','IMG_0126.PNG','IMG_0127.PNG']},
+        {n:'不能说的秘密', imgs:['IMG_0143.PNG','IMG_0144.PNG','IMG_0146.PNG']},
+        {n:'阳光灿烂的日子', imgs:['IMG_0154.PNG','IMG_0155.PNG','IMG_0156.PNG','IMG_0157.PNG']},
+        {n:'坠落的审判', imgs:['IMG_0167.PNG','IMG_0168.PNG','IMG_0169.PNG','IMG_0170.PNG','IMG_0442.JPG']},
+        {n:'重庆森林', imgs:['IMG_0204.PNG','IMG_0438.JPG']},
+        {n:'荒野生存', imgs:['IMG_0208.PNG','IMG_0430.JPG']},
+        {n:'超脱', imgs:['IMG_0432.JPG']},
+        {n:'世界赠予我的', imgs:['IMG_0251.PNG']},
+        {n:'字体习作', imgs:['IMG_0203.PNG','IMG_0434.JPG','IMG_0470.PNG']}
+      ], gallery:[] },
+    { n:'杂志排版', cat:'设计 / Editorial', year:'2025', cover:F.mag+'灵蛇护宝.pdf.png', lay:'flip',
+      desc:['《鈺瓷士》器物年鉴与《灵蛇护宝》——由我编辑与排版的两本刊物，可以像翻一本真正的杂志一样，直接读。'],
+      meta:['杂志 / 编辑设计'],
+      books:[{name:'鈺瓷士 · 器物年鉴', dir:'min/mag/yucishi/', pages:112},{name:'灵蛇护宝', dir:'min/mag/lingshe/', pages:48}],
+      gallery:[] },
+    { n:'学术论文', cat:'研究 / Research', year:'2025—2026', cover:F.pap+'6211781671248_.pic.jpg',
+      desc:['四篇第一作者论文，发表于国内外期刊。','研究横跨后殖民凝视下的性别表演与权力，以及信仰、科学与媒介叙事的认识论反思。'],
+      meta:['第一作者 · 4 篇','戏剧影视 / 传媒研究'],
+      links:[['The Cage of Desire under the Postcolonial Gaze','https://www.researchgate.net/publication/392015635_The_Cage_of_Desire_under_the_Postcolonial_Gaze_Taking_the_Gender_Performance_and_Power_Game_in_The_First_Incense_Burner_as_an_Example'],['From Gods to the Unknown','https://www.shs-conferences.org/articles/shsconf/abs/2026/02/shsconf_idepmda2026_03009/shsconf_idepmda2026_03009.html']],
+      gallery:[F.pap+'6211781671248_.pic.jpg',F.pap+'6221781671286_.pic_hd.jpg'] },
+    { n:'MIT 科研', cat:'研究 / MIT', year:'2025', cover:F.mit+'image (1).png',
+      desc:['参与 MIT「Media Psychology Online Research Seminar」科研项目，最终成绩 A+。','导师为 MIT 终身正教授 Edward Schiappa，研究方向为传媒心理学、受众心理与数字媒介、流媒体及电影。'],
+      meta:['MIT · A+','导师 Edward Schiappa'],
+      gallery:[F.mit+'image (1).png',F.mit+'image (1) (1).png'] },
+    { n:'影评写作', cat:'文字 / Writing', year:'2024—', cover:F.wx+'WechatIMG620.jpg',
+      desc:['公众号长文影评，多篇阅读量破万。','《白日焰火》：性、欲、非人与暴力（阅读 30,659）；重读《墙头马上》（阅读 38,119）。在类型片与古典文本里，做长一点、深一点的凝视。'],
+      meta:['影评 / 文化写作','单篇阅读 10万+ 累计'],
+      links:[['《白日焰火》| 性、欲、非人与暴力','https://mp.weixin.qq.com/template/article/1781667997/index.html'],['如懿念叨一辈子的《墙头马上》','https://mp.weixin.qq.com/template/article/1781670728/index.html']],
+      gallery:[F.wx+'WechatIMG620.jpg'] },
+    { n:'梅谱街采', cat:'影像 / Media', year:'2024', cover:F.mei+'6111781667781_.pic_hd.jpg',
+      desc:['担任「梅谱」公众号街头采访栏目负责人。','从选题、采访到成稿，把街头真实的声音，做成一档有温度的栏目。'],
+      meta:['栏目负责人','街头采访 / 新媒体'],
+      gallery:G(F.mei,['6111781667781_.pic_hd.jpg','6121781667836_.pic_hd.jpg','6131781667866_.pic_hd.jpg','6141781667946_.pic_hd.jpg','6151781667967_.pic_hd.jpg','6161781667992_.pic_hd.jpg','WechatIMG617.jpg']) },
+    { n:'影石短视频', cat:'影像 / Intern', year:'2025', cover:F.ins+'858f90c1-31ba-4102-9e62-92203acd5407.png',
+      desc:['影石 Insta360 线上实习，担任短视频创作者，产出多支爆款内容。','在快节奏的平台语言里，练习如何在三秒内抓住一个人。'],
+      meta:['Insta360 · 线上实习','爆款短视频创作者'],
+      gallery:[F.ins+'858f90c1-31ba-4102-9e62-92203acd5407.png',F.ins+'6181781668113_.pic_hd.jpg',F.ins+'6191781668114_.pic_hd.jpg'] },
+    { n:'挑战杯', cat:'项目 / Award', year:'2026', cover:F.cup+'IMG_5142.JPG', lay:'slides',
+      desc:['作为项目负责人，带队获 2026 年「挑战杯」浙江省银奖。','从立项、研究到答辩，完整地组织并推动了一个团队项目。'],
+      meta:['项目负责人','挑战杯 · 浙江省银奖'],
+      gallery:G(F.cup,['IMG_5142.JPG','IMG_5145.JPG','IMG_5177.JPG','IMG_5105.JPG','IMG_5176 3.jpg']) }
+  ];
+
+  const nn = i => String(i+1).padStart(2,'0');
+  const imgs = (arr,attr='') => (arr||[]).map(g=>`<img loading="lazy" src="${enc(g)}" alt=""${attr}>`).join('');
+  const psBlock = w => w.desc.map(p=>`<p class="ov-p">${p}</p>`).join('');
+  const metaBlock = w => `<div class="ov-meta">${(w.meta||[]).join('<br>')}</div>`;
+  const linkBlock = w => (w.links&&w.links.length)?`<div class="ov-links">${w.links.map(l=>`<a href="${l[1]}" target="_blank" rel="noopener">${l[0]}</a>`).join('')}</div>`:'';
+
+  const LAY = {
+    cinema:(w,i)=>`<section class="lay-cinema">
+        <div class="filmband">
+          <span class="ov-num">${nn(i)} — ${w.cat}</span><h1 class="ov-title">${w.n}</h1>
+          ${w.video?`<video class="cine-video" controls preload="none" poster="${enc(w.cover)}"><source src="${enc(w.video)}" type="video/mp4"></video>`:''}
+          <div class="filmstrip">${imgs(w.gallery)}</div>
+        </div>
+        <div class="cine-text">${psBlock(w)}${metaBlock(w)}${linkBlock(w)}</div>
+      </section>`,
+    object:(w,i)=>`<section class="lay-object">
+        <div class="obj-head"><span class="ov-num">${nn(i)} — ${w.cat}</span><h1 class="ov-title">${w.n}</h1></div>
+        <div class="obj-intro">${psBlock(w)}${metaBlock(w)}${linkBlock(w)}</div>
+        <div class="plates">${(w.gallery||[]).map((g,k)=>`<figure class="plate"><img loading="lazy" src="${enc(g)}" alt=""><figcaption><span class="pl-no">图 ${nn(k)} · Plate</span></figcaption></figure>`).join('')}</div>
+      </section>`,
+    gallery:(w,i)=>`<section class="lay-gallery">
+        <div class="gal-bar"><span class="ov-num">${nn(i)} — ${w.cat}</span><h1 class="ov-title">${w.n}</h1><div class="gal-side">${psBlock(w)}${metaBlock(w)}${linkBlock(w)}</div></div>
+        <div class="masonry">${imgs(w.gallery)}</div>
+      </section>`,
+    specimen:(w,i)=>`<section class="lay-specimen">
+        <span class="ov-num">${nn(i)} — ${w.cat}</span>
+        <div class="spec-hero"><span class="spec-big">${w.n}</span></div>
+        <div class="spec-intro">${psBlock(w)}${metaBlock(w)}${linkBlock(w)}</div>
+        <div class="spec-grid">${(w.gallery||[]).map((g,k)=>`<figure><img loading="lazy" src="${enc(g)}" alt=""><figcaption>样张 ${nn(k)} / Specimen</figcaption></figure>`).join('')}</div>
+      </section>`,
+    ring:(w,i)=>{ const N=w.gallery.length; const R=Math.round(Math.max(300, Math.min(150/(2*Math.sin(Math.PI/N)), innerWidth*0.42)));
+      const cards=w.gallery.map((g,k)=>`<div class="card3d" style="--a:${(k*360/N).toFixed(2)}deg;--r:${R}px"><img loading="lazy" src="${enc(g)}" alt=""></div>`).join('');
+      return `<section class="lay-ring">
+        <div class="ring-head"><span class="ov-num">${nn(i)} — ${w.cat}</span><h1 class="ov-title">${w.n}</h1></div>
+        <div class="ring-intro">${psBlock(w)}${metaBlock(w)}<p class="ring-hint">悬停抽出卡片 · 点击放大 · 鼠标移开继续旋转</p></div>
+        <div class="ring-stage"><div class="ring">${cards}</div></div>
+      </section>`; },
+    cosmos:(w,i)=>{
+      const pos=[[18,30],[40,20],[63,28],[83,36],[30,57],[52,47],[74,58],[16,76],[42,80],[66,80],[88,72]];
+      const stars=w.galaxies.map((g,gi)=>{
+        const p=pos[gi%pos.length], N=g.imgs.length;
+        const orad=Math.max(118, 92+N*16), ss=Math.round(28+N*5), dr=(6+gi*0.9).toFixed(1);
+        const planets=g.imgs.map((fn,k)=>{ const dur=(28+k*7); const delay=-(k/N*dur).toFixed(2);
+          return `<div class="orbit2" style="--dur:${dur}s;--delay:${delay}s"><img class="planet2" loading="lazy" src="${enc(F.fnt+fn)}" alt="${g.n}" style="--orad:${orad}px"></div>`; }).join('');
+        return `<div class="star" style="left:${p[0]}%;top:${p[1]}%"><div class="star-inner" style="--dr:${dr}s">
+            <div class="psys" style="--ss:${ss}px">${planets}</div>
+            <div class="star-orb" style="--ss:${ss}px"></div>
+            <div class="star-name">${g.n}<span>${N} 款</span></div>
+          </div></div>`; }).join('');
+      return `<section class="lay-cosmos">
+        <div class="cosmos-head"><span class="ov-num">${nn(i)} — ${w.cat}</span><h1 class="ov-title">${w.n}</h1></div>
+        <div class="cosmos-intro">${psBlock(w)}${metaBlock(w)}<p class="cosmos-hint">点击任一颗恒星，进入它的字体星系 · 再点小行星放大</p></div>
+        <div class="galaxy-space">${stars}<button class="galaxy-back">← 返回星系图</button></div>
+      </section>`; },
+    brand:(w,i)=>`<section class="lay-brand">
+        <div class="brand-head"><span class="ov-num">${nn(i)} — ${w.cat}</span><h1 class="ov-title">${w.n}</h1></div>
+        <div class="brand-body">${psBlock(w)}${metaBlock(w)}</div>
+        <a class="brand-cta" href="${w.links[0][1]}" target="_blank" rel="noopener"><span class="brand-cta-sm">${w.links[0][0]} · Live Site</span><span class="brand-cta-lg">yucishi.netlify.app <i>↗</i></span></a>
+      </section>`,
+    jewel:(w,i)=>{
+      const cuts=w.cut.map(g=>`<img class="jw-cut" loading="lazy" src="${enc(g)}" alt="灵蛇护宝">`).join('');
+      const heroes=w.hero.map(g=>`<img class="jw-hero" loading="lazy" src="${enc(g)}" alt="">`).join('');
+      const cards=w.models.map(g=>`<div class="belt-card"><img loading="lazy" src="${enc(g)}" alt=""></div>`).join('');
+      return `<section class="lay-jewel">
+        <div class="jw-head"><span class="ov-num">${nn(i)} — ${w.cat}</span><h1 class="ov-title">${w.n}</h1></div>
+        <div class="jw-intro">${psBlock(w)}${metaBlock(w)}</div>
+        <div class="jw-cuts">${cuts}</div>
+        <div class="jw-culture">${w.culture.map(p=>`<p>${p}</p>`).join('')}</div>
+        <div class="jw-heroes">${heroes}</div>
+        <div class="jw-beltwrap"><p class="jw-belt-label">模特演绎 · 传送带轮转 · 点击放大</p><div class="belt"><div class="belt-track">${cards}${cards}</div></div></div>
+        <div class="jw-cert"><img loading="lazy" src="${enc(w.cert)}" alt="获奖证书"><span>《灵蛇护宝》获奖证书</span></div>
+      </section>`; },
+    flip:(w,i)=>{
+      const books=w.books.map((b,bi)=>`<button class="flip-book${bi===0?' on':''}" data-dir="${b.dir}" data-pages="${b.pages}">${b.name} · ${b.pages} 页</button>`).join('');
+      return `<section class="lay-flip">
+        <div class="flip-head"><span class="ov-num">${nn(i)} — ${w.cat}</span><h1 class="ov-title">${w.n}</h1></div>
+        <div class="flip-intro">${psBlock(w)}${metaBlock(w)}</div>
+        <div class="flip-books">${books}</div>
+        <div class="flip-stage-wrap"><div class="flipbook" id="flipbook"></div></div>
+        <div class="flip-controls"><button class="flip-prev">‹ 上一页</button><span class="flip-count"></span><button class="flip-next">下一页 ›</button></div>
+      </section>`; },
+    slides:(w,i)=>{
+      const imgs=w.gallery.map((g,k)=>`<img class="slide${k===0?' on':''}" loading="lazy" src="${enc(g)}" alt="">`).join('');
+      const dots=w.gallery.map((g,k)=>`<button class="slide-dot${k===0?' on':''}" data-k="${k}" aria-label="第${k+1}张"></button>`).join('');
+      return `<section class="lay-slides">
+        <div class="sl-head"><span class="ov-num">${nn(i)} — ${w.cat}</span><h1 class="ov-title">${w.n}</h1></div>
+        <div class="sl-intro">${psBlock(w)}${metaBlock(w)}</div>
+        <div class="sl-stage">${imgs}<button class="sl-prev" aria-label="上一张">‹</button><button class="sl-next" aria-label="下一张">›</button></div>
+        <div class="sl-dots">${dots}</div>
+      </section>`; },
+    reading:(w,i)=>{ const d0=w.desc[0]||''; return `<section class="lay-reading">
+        <div class="read-head"><span class="ov-num">${nn(i)} — ${w.cat}</span><h1 class="ov-title">${w.n}</h1></div>
+        <div class="read-body">
+          <p class="ov-p"><span class="dropcap">${d0.slice(0,1)}</span>${d0.slice(1)}</p>
+          ${w.desc.slice(1).map(p=>`<p class="ov-p">${p}</p>`).join('')}
+          ${metaBlock(w)}${linkBlock(w)}
+          ${(w.gallery&&w.gallery.length)?`<div class="read-figs">${imgs(w.gallery)}</div>`:''}
+        </div>
+      </section>`; }
+  };
+
+  /* ---- render index ---- */
+  const list = document.getElementById('worksList');
+  works.forEach((w,i)=>{
+    const t=theme(w);
+    const row=document.createElement('div');
+    row.className='row'; row.dataset.i=i; row.style.setProperty('--i',i); row.style.setProperty('--racc',t.a);
+    row.innerHTML=`<span class="num">${nn(i)}</span><span class="ttl">${w.n}</span><span class="meta">${w.cat} · ${w.year}</span>`;
+    list.appendChild(row);
+  });
+
+  /* ---- floating preview ---- */
+  const prev=document.getElementById('preview'); let curCover='';
+  list.addEventListener('pointerover',e=>{ const r=e.target.closest('.row'); if(!r)return; const w=works[+r.dataset.i]; if(curCover!==w.cover){curCover=w.cover; prev.src=enc(w.cover);} prev.classList.add('show'); });
+  list.addEventListener('pointermove',e=>{ prev.style.left=e.clientX+'px'; prev.style.top=e.clientY+'px'; });
+  list.addEventListener('pointerout',e=>{ if(!e.relatedTarget||!e.relatedTarget.closest('.row')) prev.classList.remove('show'); });
+
+  /* ---- overlay ---- */
+  const overlay=document.getElementById('overlay'), ovInner=document.getElementById('ovInner');
+  function openWork(i){ const w=works[i], t=theme(w);
+    overlay.style.setProperty('--acc',t.a);
+    let lay=w.lay||t.l; if(lay==='ring' && !matchMedia('(hover:hover)').matches) lay='gallery';
+    ovInner.innerHTML=(LAY[lay]||LAY.reading)(w,i);
+    if(lay==='flip') initFlip(ovInner);
+    if(lay==='slides') initSlides(ovInner);
+    overlay.classList.add('open'); overlay.scrollTop=0; document.body.style.overflow='hidden';
+  }
+  function closeWork(){ overlay.classList.remove('open'); document.body.style.overflow=''; }
+  list.addEventListener('click',e=>{ const r=e.target.closest('.row'); if(r) openWork(+r.dataset.i); });
+  document.getElementById('ovClose').addEventListener('click',closeWork);
+  document.getElementById('portrait').src=enc(F.me+'我的照片1.JPG');
+
+  /* ---- lightbox (click any image to enlarge) ---- */
+  const lb=document.getElementById('lightbox'), lbImg=document.getElementById('lbImg'), lbCount=document.getElementById('lbCount');
+  let lbList=[], lbIdx=0;
+  const showLB=()=>{ lbImg.src=lbList[lbIdx]; lbCount.textContent=(lbIdx+1)+' / '+lbList.length; };
+  const openLB=(list,idx)=>{ lbList=list; lbIdx=idx; showLB(); lb.classList.add('open'); };
+  const closeLB=()=>lb.classList.remove('open');
+  const lbNav=d=>{ lbIdx=(lbIdx+d+lbList.length)%lbList.length; showLB(); };
+  document.getElementById('lbClose').onclick=closeLB;
+  document.getElementById('lbPrev').onclick=e=>{ e.stopPropagation(); lbNav(-1); };
+  document.getElementById('lbNext').onclick=e=>{ e.stopPropagation(); lbNav(1); };
+  lb.addEventListener('click',e=>{ if(e.target===lb) closeLB(); });
+  ovInner.addEventListener('click',e=>{
+    if(e.target.closest('.galaxy-back')){ const sp=e.target.closest('.galaxy-space'); sp.classList.remove('open'); sp.querySelectorAll('.star.active').forEach(s=>{s.classList.remove('active');const p=s.querySelector('.psys');if(p)p.style.opacity='';}); return; }
+    const star=e.target.closest('.star');
+    if(star && !e.target.closest('.planet2')){ const sp=star.closest('.galaxy-space'); const ps=star.querySelector('.psys');
+      if(star.classList.contains('active')){ star.classList.remove('active'); sp.classList.remove('open'); if(ps)ps.style.opacity=''; }
+      else { sp.querySelectorAll('.star.active').forEach(s=>{s.classList.remove('active');const p=s.querySelector('.psys');if(p)p.style.opacity='';}); star.classList.add('active'); sp.classList.add('open'); if(ps)ps.style.opacity='1'; }
+      return; }
+    if(e.target.closest('.flip-img')) return;
+    const im=e.target.closest('img'); if(!im) return;
+    const seen=new Set(), uniq=[]; ovInner.querySelectorAll('img').forEach(x=>{ const s=x.currentSrc||x.src; if(!seen.has(s)){seen.add(s);uniq.push(s);} });
+    openLB(uniq, uniq.indexOf(im.currentSrc||im.src));
+  });
+  function initFlip(root){
+    const wrap=root.querySelector('.flip-stage-wrap'), cnt=root.querySelector('.flip-count'), books=[...root.querySelectorAll('.flip-book')];
+    let pf=null, total=0, curEl=null;
+    const pad=n=>String(n).padStart(3,'0');
+    const pages=(dir,n)=>{ const a=[]; for(let p=1;p<=n;p++) a.push(encodeURI(dir+'p'+pad(p)+'.jpg')); return a; };
+    const onFlip=()=>{ if(!pf) return; const i=pf.getCurrentPageIndex(); cnt.textContent=(i+1)+' / '+total;
+      let sh=0; if(i===0) sh=-25; else if(i>=total-1) sh=25;   // 封面/封底居中
+      if(curEl) curEl.style.transform = sh? 'translateX('+sh+'%)' : ''; };
+    function build(btn){
+      books.forEach(b=>b.classList.toggle('on',b===btn));
+      const dir=btn.dataset.dir, n=+btn.dataset.pages, list=pages(dir,n); total=n;
+      if(pf){ try{ pf.destroy(); }catch(e){} pf=null; }
+      wrap.innerHTML='<div class="flipbook"></div>'; const el=wrap.querySelector('.flipbook'); curEl=el;
+      el.innerHTML=list.map(s=>'<div class="page"><img src="'+s+'" alt=""></div>').join('');
+      const probe=new Image();
+      probe.onload=()=>{
+        const ratio=probe.naturalWidth/probe.naturalHeight;   // 单页比例
+        const H=680, W=Math.round(H*ratio);                   // 两页跨页：左右各一页
+        pf=new St.PageFlip(el,{ width:W, height:H, size:'stretch', minWidth:Math.round(W*0.3), maxWidth:W, minHeight:Math.round(H*0.3), maxHeight:H+10, drawShadow:true, maxShadowOpacity:.5, showCover:true, usePortrait:false, flippingTime:700, mobileScrollSupport:false, useMouseEvents:true });
+        pf.loadFromHTML(el.querySelectorAll('.page'));
+        pf.on('flip',onFlip); pf.on('init',onFlip); setTimeout(onFlip,500);
+      };
+      probe.src=list[0];
+    }
+    books.forEach(b=>b.addEventListener('click',()=>build(b)));
+    root.querySelector('.flip-prev').addEventListener('click',()=>pf&&pf.flipPrev());
+    root.querySelector('.flip-next').addEventListener('click',()=>pf&&pf.flipNext());
+    const start=()=>build(books[0]);
+    if(window.St&&window.St.PageFlip){ start(); }
+    else { let tries=0; const t=setInterval(()=>{ if(window.St&&window.St.PageFlip){ clearInterval(t); start(); } else if(++tries>70){ clearInterval(t); } },120); }
+  }
+  function initSlides(root){
+    const slides=[...root.querySelectorAll('.slide')], dots=[...root.querySelectorAll('.slide-dot')]; let cur=0, timer;
+    const go=n=>{ cur=(n+slides.length)%slides.length; slides.forEach((s,k)=>s.classList.toggle('on',k===cur)); dots.forEach((d,k)=>d.classList.toggle('on',k===cur)); };
+    const play=()=>{ clearInterval(timer); timer=setInterval(()=>go(cur+1),4000); };
+    root.querySelector('.sl-prev').addEventListener('click',e=>{e.stopPropagation();go(cur-1);play();});
+    root.querySelector('.sl-next').addEventListener('click',e=>{e.stopPropagation();go(cur+1);play();});
+    dots.forEach(d=>d.addEventListener('click',()=>{go(+d.dataset.k);play();}));
+    const st=root.querySelector('.sl-stage'); st.addEventListener('mouseenter',()=>clearInterval(timer)); st.addEventListener('mouseleave',play);
+    play();
+  }
+  addEventListener('keydown',e=>{
+    if(lb.classList.contains('open')){ if(e.key==='Escape') closeLB(); else if(e.key==='ArrowRight') lbNav(1); else if(e.key==='ArrowLeft') lbNav(-1); return; }
+    if(e.key==='Escape') closeWork();
+  });
+
+  /* ---- scroll reveal ---- */
+  const io=new IntersectionObserver((es)=>{ es.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } }); },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  io.observe(document.querySelector('.works'));
+
+  /* ---- custom cursor ---- */
+  if(matchMedia('(hover:hover)').matches){
+    const cur=document.getElementById('cursor');
+    addEventListener('pointermove',e=>{ document.body.classList.add('curon'); cur.style.left=e.clientX+'px'; cur.style.top=e.clientY+'px'; });
+    const hot='.row, a, .scroll, .roster span, .ov-close, .nav a, .card3d, .star, .planet2, .belt-card, .slide, .flip-book, .flip-prev, .flip-next, .sl-prev, .sl-next, .slide-dot, .jw-cut, .jw-hero, .jw-cert img, .masonry img, .plate img, .spec-grid img, .read-figs img, .filmstrip img, .lb-prev, .lb-next, .lb-close';
+    addEventListener('pointerover',e=>{ const h=e.target.closest(hot); if(h){ cur.classList.add('big'); const r=h.closest('.row'); cur.style.color=r?getComputedStyle(r).getPropertyValue('--racc'):'var(--ink)'; } });
+    addEventListener('pointerout',e=>{ if(e.target.closest(hot)) cur.classList.remove('big'); });
+  }
+
+  /* ===== hero identity rotation ===== */
+  const roles=["导演","编剧","陶艺","珠宝","字体","绘画","学者","写作"];
+  const rosterNames=["导演","编剧","陶艺人","珠宝设计","字体设计","画者","学者","写作者"];
+  const wordEl=document.getElementById('word'), slot=wordEl.parentElement, rosterEl=document.getElementById('roster');
+  rosterNames.forEach((r,i)=>{ const s=document.createElement('span'); s.textContent=r; s.dataset.i=i; if(i===0)s.classList.add('on'); rosterEl.appendChild(s); });
+  const rspans=[...rosterEl.children]; let idx=0; const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const mark=n=>rspans.forEach(s=>s.classList.toggle('on',+s.dataset.i===n));
+  function tick(){ const next=(idx+1)%roles.length;
+    if(reduce){ wordEl.textContent=roles[next]; mark(next); idx=next; return; }
+    slot.classList.add('swap');
+    setTimeout(()=>{ wordEl.textContent=roles[next]; slot.classList.remove('swap'); slot.classList.add('enter'); void slot.offsetWidth; slot.classList.remove('enter'); mark(next); idx=next; },520);
+  }
+  let timer=setInterval(tick,2400);
+  rosterEl.addEventListener('pointerenter',()=>clearInterval(timer));
+  rosterEl.addEventListener('pointerleave',()=>timer=setInterval(tick,2400));
+  rosterEl.addEventListener('click',e=>{ const t=e.target.closest('span'); if(!t)return; const n=+t.dataset.i; wordEl.textContent=roles[n]; mark(n); idx=n; });
+  let raf; addEventListener('pointermove',e=>{ if(reduce)return; cancelAnimationFrame(raf);
+    raf=requestAnimationFrame(()=>{ const r=wordEl.getBoundingClientRect(), cx=r.left+r.width/2, cy=r.top+r.height/2; const k=Math.max(0,1-Math.hypot(e.clientX-cx,e.clientY-cy)/700); wordEl.style.fontWeight=Math.round(400+k*500); wordEl.style.letterSpacing=(k*0.04).toFixed(3)+'em'; });
+  });
+</script>
+</body>
+</html>
