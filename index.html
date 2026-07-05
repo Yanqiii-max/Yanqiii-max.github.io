@@ -78,7 +78,8 @@
 
   /* ===== about ===== */
   .about{ display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); gap:clamp(28px,5vw,80px); align-items:start }
-  .about .portrait{ width:100%; aspect-ratio:3/4; object-fit:cover; filter:grayscale(.12) }
+  .about .portrait{ width:100%; aspect-ratio:3/4; object-fit:cover; filter:grayscale(.8) contrast(1.02); box-shadow:14px 14px 0 -1px var(--paper), 14px 14px 0 0 var(--cinnabar); transition:filter .8s ease, box-shadow .6s ease }
+  .about .portrait:hover{ filter:none; box-shadow:7px 7px 0 -1px var(--paper), 7px 7px 0 0 var(--cinnabar) }
   .bio p{ font-size:clamp(16px,1.4vw,21px); line-height:1.85; font-weight:300; margin-bottom:1.2em; max-width:46ch }
   .bio p .accent{ color:var(--cinnabar) }
   .contact{ margin-top:2.4em; border-top:1px solid var(--hair); padding-top:1.6em; display:grid; grid-template-columns:1fr 1fr; gap:1em 2em; max-width:46ch }
@@ -88,8 +89,8 @@
   footer.foot{ display:flex; justify-content:space-between; align-items:baseline; padding:30px var(--mx); border-top:1px solid var(--hair) }
 
   /* ===== overlay shell ===== */
-  .overlay{ position:fixed; inset:0; z-index:60; background:var(--paper); overflow-y:auto; overflow-x:hidden; opacity:0; visibility:hidden; transition:opacity .5s ease; }
-  .overlay.open{ opacity:1; visibility:visible }
+  .overlay{ position:fixed; inset:0; z-index:60; background:var(--paper); overflow-y:auto; overflow-x:hidden; visibility:hidden; clip-path:inset(0 0 100% 0); transition:clip-path .65s cubic-bezier(.76,0,.24,1), visibility 0s .65s; }
+  .overlay.open{ visibility:visible; clip-path:inset(0 0 0% 0); transition:clip-path .65s cubic-bezier(.76,0,.24,1), visibility 0s 0s }
   .ov-close{ position:fixed; top:clamp(18px,2.4vw,30px); right:var(--mx); z-index:62; font-family:"EB Garamond",serif; font-size:13px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink); cursor:pointer; background:none; border:none; mix-blend-mode:multiply; }
   .ov-close:hover{ color:var(--acc) }
   .ov-inner{ padding:clamp(72px,14vh,150px) var(--mx) 9vh; max-width:1600px; margin:0 auto }
@@ -258,6 +259,50 @@
   .slide-dot{ width:8px; height:8px; border-radius:50%; border:none; background:var(--faint); cursor:pointer; padding:0; transition:.3s }
   .slide-dot.on{ background:var(--acc); transform:scale(1.3) }
 
+  /* ---- layout: channel (video channel card) ---- */
+  .lay-channel .ch-head{ border-bottom:1px solid var(--hair); padding-bottom:clamp(18px,3vh,34px) }
+  .ch-grid{ display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(30px,6vw,90px); align-items:center; margin-top:clamp(30px,6vh,64px) }
+  .ch-card{ background:#fff; padding:clamp(18px,2.4vw,34px) clamp(18px,2.4vw,34px) clamp(14px,2vw,24px); box-shadow:0 24px 70px rgba(60,45,20,.16); transform:rotate(-2deg); transition:transform .6s cubic-bezier(.2,.7,.2,1), box-shadow .6s; max-width:440px; margin:0 auto }
+  .ch-card:hover{ transform:rotate(0) translateY(-6px); box-shadow:0 34px 90px rgba(60,45,20,.22) }
+  .ch-card img{ display:block; width:100% }
+  .ch-scan{ text-align:center; font-family:"EB Garamond",serif; font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:var(--mute); margin-top:14px }
+  .ch-badge{ display:inline-flex; align-items:center; gap:.6em; margin-top:1.6em; border:1px solid var(--hair); border-radius:100px; padding:9px 20px; font-size:14px }
+  .ch-badge i{ width:9px; height:9px; border-radius:50%; background:var(--acc); animation:pulse 2s ease-in-out infinite }
+  @keyframes pulse{ 0%,100%{ box-shadow:0 0 0 0 rgba(217,123,41,.4) } 50%{ box-shadow:0 0 0 7px rgba(217,123,41,0) } }
+
+  /* ===== intro curtain ===== */
+  .intro{ position:fixed; inset:0; z-index:100; background:var(--ink); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:1.2em; clip-path:inset(0 0 0 0); transition:clip-path .85s cubic-bezier(.76,0,.24,1) }
+  .intro.done{ clip-path:inset(0 0 100% 0); pointer-events:none }
+  .intro .iname{ color:var(--paper); font-size:clamp(30px,6vw,72px); font-weight:500; letter-spacing:.3em; margin-right:-.3em }
+  .intro .iname .ch{ display:inline-block; animation:up .8s cubic-bezier(.2,.7,.2,1) backwards; animation-delay:calc(var(--d)*.07s) }
+  .intro .isub{ color:var(--faint); font-family:"EB Garamond",serif; font-size:12px; letter-spacing:.4em; text-transform:uppercase; margin-right:-.4em; animation:up .8s cubic-bezier(.2,.7,.2,1) .4s backwards }
+
+  /* ===== scroll progress ===== */
+  .progress{ position:fixed; top:0; left:0; height:2px; width:0; background:var(--cinnabar); z-index:95; pointer-events:none }
+
+  /* ===== film grain ===== */
+  .grain{ position:fixed; inset:-100%; z-index:80; pointer-events:none; opacity:.045; background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/><feColorMatrix type='saturate' values='0'/></filter><rect width='240' height='240' filter='url(%23n)' opacity='0.6'/></svg>"); animation:grain 7s steps(8) infinite }
+  @keyframes grain{ 0%{transform:translate(0,0)} 12.5%{transform:translate(-3%,2%)} 25%{transform:translate(2%,-3%)} 37.5%{transform:translate(-2%,-2%)} 50%{transform:translate(3%,3%)} 62.5%{transform:translate(-3%,-1%)} 75%{transform:translate(1%,3%)} 87.5%{transform:translate(3%,-2%)} 100%{transform:translate(0,0)} }
+
+  /* ===== ghost watermark ===== */
+  .stage{ position:relative }
+  .ghost{ position:absolute; right:-1vw; bottom:5vh; font-family:"EB Garamond",serif; font-size:clamp(70px,15vw,220px); line-height:1; color:transparent; -webkit-text-stroke:1px rgba(27,25,22,.09); letter-spacing:.02em; pointer-events:none; user-select:none; white-space:nowrap; will-change:transform }
+
+  /* ===== tape marquee ===== */
+  .tape{ overflow:hidden; border-top:1px solid var(--hair); border-bottom:1px solid var(--hair); padding:clamp(14px,2vh,24px) 0 }
+  .tape-track{ display:flex; align-items:baseline; width:max-content; animation:tape 30s linear infinite; will-change:transform }
+  .tape:hover .tape-track{ animation-play-state:paused }
+  @keyframes tape{ to{ transform:translateX(-50%) } }
+  .tape b{ font-weight:500; font-size:clamp(26px,4vw,50px); white-space:nowrap; padding:0 .45em }
+  .tape b:nth-child(4n+3){ color:transparent; -webkit-text-stroke:1px var(--ink) }
+  .tape i{ font-style:normal; color:var(--cinnabar); font-size:clamp(18px,2.6vw,32px) }
+
+  /* ===== big footer ===== */
+  .foot-hero{ display:block; width:100%; text-align:center; background:none; border:none; border-top:1px solid var(--hair); padding:clamp(50px,10vh,120px) var(--mx); cursor:pointer; font-family:inherit }
+  .foot-hero .fh-sm{ display:block; font-family:"EB Garamond",serif; font-size:12px; letter-spacing:.3em; text-transform:uppercase; color:var(--mute); margin-bottom:1em }
+  .foot-hero .fh-lg{ display:block; font-size:clamp(2rem,6.5vw,5.6rem); font-weight:500; line-height:1.15; color:transparent; -webkit-text-stroke:1px var(--ink); transition:color .6s ease }
+  .foot-hero:hover .fh-lg{ color:var(--cinnabar); -webkit-text-stroke:1px var(--cinnabar) }
+
   /* ===== lightbox ===== */
   .lightbox{ position:fixed; inset:0; z-index:75; background:rgba(18,16,12,.93); display:flex; align-items:center; justify-content:center; opacity:0; visibility:hidden; transition:opacity .35s; }
   .lightbox.open{ opacity:1; visibility:visible }
@@ -277,6 +322,8 @@
   @media(hover:none){ .cursor,.preview{ display:none } }
   @media (max-width:860px){
     .about{ grid-template-columns:1fr; gap:28px }
+    .ch-grid{ grid-template-columns:1fr }
+    .ghost{ font-size:clamp(54px,13vw,120px); bottom:3vh }
     .read-figs img{ width:100% }
     .plate{ width:100% }
   }
@@ -290,6 +337,12 @@
 </style>
 </head>
 <body>
+  <div class="intro" id="intro" aria-hidden="true">
+    <span class="iname" id="iname">沈彦祺</span>
+    <span class="isub">Portfolio · Shen Yanqi</span>
+  </div>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
   <div class="topbar">
     <div class="name">沈彦祺<em>Shen Yanqi</em></div>
     <nav class="nav"><a href="#works">作品</a><a href="#about">关于</a></nav>
@@ -308,9 +361,12 @@
     </section>
     <div class="herofoot">
       <div class="label">Base 北京 / 杭州</div>
-      <div class="scroll" onclick="document.getElementById('works').scrollIntoView()">向下 · 14 件作品 <i></i></div>
+      <div class="scroll" onclick="document.getElementById('works').scrollIntoView()">向下 · 16 件作品 <i></i></div>
     </div>
+    <span class="ghost" id="ghost" aria-hidden="true">SHEN YANQI</span>
   </main>
+
+  <div class="tape" aria-hidden="true"><div class="tape-track" id="tapeTrack"></div></div>
 
   <section id="works">
     <div class="shead reveal"><h2>作品索引</h2><span class="label">Selected works · 2023—2026</span></div>
@@ -329,11 +385,16 @@
           <div><span class="k">WeChat</span><span class="v">syq1971495469</span></div>
           <div><span class="k">Phone</span><span class="v">199 0128 2799</span></div>
           <div><span class="k">Base</span><span class="v">北京 / 杭州</span></div>
+          <div><span class="k">视频号 Channel</span><span class="v">彦祺 Yanqi</span></div>
         </div>
       </div>
     </div>
   </section>
 
+  <button class="foot-hero reveal" onclick="scrollTo({top:0,behavior:'smooth'})">
+    <span class="fh-sm">Back to top · 回到开始</span>
+    <span class="fh-lg">用所有媒介，讲同一个故事。</span>
+  </button>
   <footer class="foot reveal"><span class="label">© 2026 沈彦祺</span><span class="label">用所有媒介 · 讲同一个故事</span></footer>
 
   <img class="preview" id="preview" alt="">
@@ -355,14 +416,16 @@
     jew:'素材/珠宝作品获奖/', pnt:'素材/绘画作品/', fnt:'素材/字体设计/', mag:'素材/杂志排版/_covers/', aig:'素材/AIGC视觉大片/',
     pap:'素材/4篇国内外论文一作/', mit:'素材/MIT科研项目A+成绩/',
     wx :'素材/公众号文章：《白日焰火》|  性、欲、非人与暴力（浏览量30659）；如懿念叨了一辈子的《墙头马上》真是讲的爱情吗？（浏览量38119）/',
-    mei:'素材/“梅谱”公众号街头采访栏目负责人/', ins:'素材/影石线上实习爆款短视频创作者/', cup:'素材/2026年“挑战杯”浙江省银奖负责人/', me :'素材/基本信息/'
+    mei:'素材/“梅谱”公众号街头采访栏目负责人/', ins:'素材/影石线上实习爆款短视频创作者/', cup:'素材/2026年“挑战杯”浙江省银奖负责人/', me :'素材/基本信息/',
+    cha:'素材/导演《前月浮梁采茶去》纪录片/', yq :'素材/自媒体博主“彦祺_Yanqi”/'
   };
   const G=(b,a)=>a.map(n=>b+n);
   const THEME = {
     '纪录片':{a:'#B23A2C',l:'cinema'}, '影像':{a:'#B23A2C',l:'cinema'},
     '品牌':{a:'#8C6A39',l:'gallery'}, '网站':{a:'#8C6A39',l:'brand'}, '工艺':{a:'#4F7A6F',l:'object'},
     '视觉':{a:'#9A6A38',l:'gallery'}, '设计':{a:'#355C77',l:'specimen'},
-    '研究':{a:'#6A5A78',l:'reading'}, '文字':{a:'#6A5A78',l:'reading'}, '项目':{a:'#B23A2C',l:'reading'}
+    '研究':{a:'#6A5A78',l:'reading'}, '文字':{a:'#6A5A78',l:'reading'}, '项目':{a:'#B23A2C',l:'reading'},
+    '自媒体':{a:'#D97B29',l:'channel'}
   };
   const theme = w => THEME[w.cat.split('/')[0].trim()] || {a:'#B23A2C',l:'reading'};
 
@@ -372,6 +435,11 @@
       meta:['导演 / Director','入围 · 2025 澳门国际微电影节'], links:[['观看互动小游戏','https://diexijiaolonggame.netlify.app/']],
       video:F.die+'纪录片.mp4',
       gallery:[F.die+'剧照1.JPG',F.die+'剧照2.JPG',F.die+'剧照3.JPG',F.die+'剧照4.JPG',F.die+'剧照5.JPG',F.die+'剧照6.JPG',F.die+'入围证书.jpg'] },
+    { n:'前月浮梁采茶去', cat:'纪录片 / Film', year:'2026', cover:F.cha+'海报竖.jpg', vposter:F.cha+'海报横.jpg',
+      desc:['「商人重利轻别离，前月浮梁买茶去。」——白居易在《琵琶行》里随手留下的一个地名，一千二百年后，我们带着摄影机走了进去。','我执导的茶文化纪录片。跟着采茶人走进景德镇浮梁的山场与茶季，在雾气、露水和手指的重复动作里，记录一杯茶最初的样子——只是这一次，「买茶」变成了「采茶」。'],
+      meta:['导演 / Director','联合导演 · 宋志豪','浮梁 · 2026'],
+      video:F.cha+'纪录片.mp4',
+      gallery:[F.cha+'海报竖.jpg',F.cha+'海报横.jpg'] },
     { n:'鈺瓷士', cat:'网站 / Website', year:'2026', cover:F.mag+'鈺瓷士.pdf.png',
       desc:['我为陶瓷主题独立搭建的一个网站。','从视觉、器物年鉴的编排到前端代码实现，由我一人从概念做到上线。'],
       meta:['网站 / 视觉 / 前端','独立设计 + 开发'], links:[['进入网站','https://yucishi.netlify.app/']],
@@ -440,6 +508,10 @@
       desc:['影石 Insta360 线上实习，担任短视频创作者，产出多支爆款内容。','在快节奏的平台语言里，练习如何在三秒内抓住一个人。'],
       meta:['Insta360 · 线上实习','爆款短视频创作者'],
       gallery:[F.ins+'858f90c1-31ba-4102-9e62-92203acd5407.png',F.ins+'6181781668113_.pic_hd.jpg',F.ins+'6191781668114_.pic_hd.jpg'] },
+    { n:'彦祺 Yanqi', cat:'自媒体 / Channel', year:'2026—', cover:F.yq+'视频号名片.jpg', lay:'channel',
+      desc:['我的自媒体频道——微信视频号「彦祺 Yanqi」。','一直站在镜头后面的人，也想偶尔走到镜头前。在这里更新我的创作日常与幕后碎片：拍片、做陶、写字、生活。刚刚起航，欢迎来看。'],
+      meta:['微信视频号','博主 / Creator · 2026 起'],
+      qr:F.yq+'视频号名片.jpg', gallery:[] },
     { n:'挑战杯', cat:'项目 / Award', year:'2026', cover:F.cup+'IMG_5142.JPG', lay:'slides',
       desc:['作为项目负责人，带队获 2026 年「挑战杯」浙江省银奖。','从立项、研究到答辩，完整地组织并推动了一个团队项目。'],
       meta:['项目负责人','挑战杯 · 浙江省银奖'],
@@ -456,7 +528,7 @@
     cinema:(w,i)=>`<section class="lay-cinema">
         <div class="filmband">
           <span class="ov-num">${nn(i)} — ${w.cat}</span><h1 class="ov-title">${w.n}</h1>
-          ${w.video?`<video class="cine-video" controls preload="none" poster="${enc(w.cover)}"><source src="${enc(w.video)}" type="video/mp4"></video>`:''}
+          ${w.video?`<video class="cine-video" controls preload="none" poster="${enc(w.vposter||w.cover)}"><source src="${enc(w.video)}" type="video/mp4"></video>`:''}
           <div class="filmstrip">${imgs(w.gallery)}</div>
         </div>
         <div class="cine-text">${psBlock(w)}${metaBlock(w)}${linkBlock(w)}</div>
@@ -536,6 +608,13 @@
         <div class="sl-stage">${imgs}<button class="sl-prev" aria-label="上一张">‹</button><button class="sl-next" aria-label="下一张">›</button></div>
         <div class="sl-dots">${dots}</div>
       </section>`; },
+    channel:(w,i)=>`<section class="lay-channel">
+        <div class="ch-head"><span class="ov-num">${nn(i)} — ${w.cat}</span><h1 class="ov-title">${w.n}</h1></div>
+        <div class="ch-grid">
+          <div>${psBlock(w)}${metaBlock(w)}${linkBlock(w)}<span class="ch-badge"><i></i>持续更新中 · Now streaming</span></div>
+          <figure class="ch-card"><img src="${enc(w.qr)}" alt="视频号二维码"><figcaption class="ch-scan">微信「扫一扫」· 关注视频号</figcaption></figure>
+        </div>
+      </section>`,
     reading:(w,i)=>{ const d0=w.desc[0]||''; return `<section class="lay-reading">
         <div class="read-head"><span class="ov-num">${nn(i)} — ${w.cat}</span><h1 class="ov-title">${w.n}</h1></div>
         <div class="read-body">
@@ -655,15 +734,17 @@
   /* ---- custom cursor ---- */
   if(matchMedia('(hover:hover)').matches){
     const cur=document.getElementById('cursor');
-    addEventListener('pointermove',e=>{ document.body.classList.add('curon'); cur.style.left=e.clientX+'px'; cur.style.top=e.clientY+'px'; });
+    let cmx=0,cmy=0,ccx=0,ccy=0,curInit=false;
+    addEventListener('pointermove',e=>{ document.body.classList.add('curon'); cmx=e.clientX; cmy=e.clientY; if(!curInit){ccx=cmx;ccy=cmy;curInit=true;} });
+    (function cloop(){ ccx+=(cmx-ccx)*.22; ccy+=(cmy-ccy)*.22; cur.style.left=ccx+'px'; cur.style.top=ccy+'px'; requestAnimationFrame(cloop); })();
     const hot='.row, a, .scroll, .roster span, .ov-close, .nav a, .card3d, .star, .planet2, .belt-card, .slide, .flip-book, .flip-prev, .flip-next, .sl-prev, .sl-next, .slide-dot, .jw-cut, .jw-hero, .jw-cert img, .masonry img, .plate img, .spec-grid img, .read-figs img, .filmstrip img, .lb-prev, .lb-next, .lb-close';
     addEventListener('pointerover',e=>{ const h=e.target.closest(hot); if(h){ cur.classList.add('big'); const r=h.closest('.row'); cur.style.color=r?getComputedStyle(r).getPropertyValue('--racc'):'var(--ink)'; } });
     addEventListener('pointerout',e=>{ if(e.target.closest(hot)) cur.classList.remove('big'); });
   }
 
   /* ===== hero identity rotation ===== */
-  const roles=["导演","编剧","陶艺","珠宝","字体","绘画","学者","写作"];
-  const rosterNames=["导演","编剧","陶艺人","珠宝设计","字体设计","画者","学者","写作者"];
+  const roles=["导演","编剧","陶艺","珠宝","字体","绘画","学者","写作","博主"];
+  const rosterNames=["导演","编剧","陶艺人","珠宝设计","字体设计","画者","学者","写作者","自媒体博主"];
   const wordEl=document.getElementById('word'), slot=wordEl.parentElement, rosterEl=document.getElementById('roster');
   rosterNames.forEach((r,i)=>{ const s=document.createElement('span'); s.textContent=r; s.dataset.i=i; if(i===0)s.classList.add('on'); rosterEl.appendChild(s); });
   const rspans=[...rosterEl.children]; let idx=0; const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
@@ -680,6 +761,24 @@
   let raf; addEventListener('pointermove',e=>{ if(reduce)return; cancelAnimationFrame(raf);
     raf=requestAnimationFrame(()=>{ const r=wordEl.getBoundingClientRect(), cx=r.left+r.width/2, cy=r.top+r.height/2; const k=Math.max(0,1-Math.hypot(e.clientX-cx,e.clientY-cy)/700); wordEl.style.fontWeight=Math.round(400+k*500); wordEl.style.letterSpacing=(k*0.04).toFixed(3)+'em'; });
   });
+
+  /* ===== intro curtain ===== */
+  const intro=document.getElementById('intro'), iname=document.getElementById('iname');
+  iname.innerHTML=[...iname.textContent].map((c,k)=>`<span class="ch" style="--d:${k+1}">${c}</span>`).join('');
+  setTimeout(()=>intro.classList.add('done'), 1250);
+  setTimeout(()=>intro.remove(), 2400);
+
+  /* ===== tape marquee ===== */
+  const tapeWords=['导演','编剧','陶艺','珠宝','字体','绘画','学者','写作','博主'];
+  const tapeHalf=tapeWords.map(t=>`<b>${t}</b><i>·</i>`).join('');
+  document.getElementById('tapeTrack').innerHTML=tapeHalf+tapeHalf;
+
+  /* ===== scroll progress + ghost parallax ===== */
+  const prog=document.getElementById('progress'), ghostEl=document.getElementById('ghost');
+  addEventListener('scroll',()=>{ const h=document.documentElement;
+    prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
+    if(!reduce) ghostEl.style.transform='translateY('+(h.scrollTop*-.12).toFixed(1)+'px)';
+  },{passive:true});
 </script>
 </body>
 </html>
