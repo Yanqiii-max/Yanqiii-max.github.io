@@ -73,13 +73,21 @@
   .works .row:hover .ttl, .works .row:hover .num{ color:var(--racc) }
   .row .meta{ font-family:"EB Garamond",serif; font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--mute); text-align:right; white-space:nowrap }
 
-  .preview{ position:fixed; top:0; left:0; z-index:20; width:clamp(190px,21vw,310px); aspect-ratio:4/5; object-fit:cover; pointer-events:none; opacity:0; transform:translate(-50%,-50%) rotate(-2.5deg) scale(.96); clip-path:inset(0 0 100% 0); transition:opacity .35s ease, transform .45s cubic-bezier(.2,.7,.2,1), clip-path .55s cubic-bezier(.76,0,.24,1); }
-  .preview.show{ opacity:1; transform:translate(-50%,-50%) rotate(-2.5deg) scale(1); clip-path:inset(0 0 0% 0) }
+  .preview{ position:fixed; top:0; left:0; z-index:20; width:clamp(190px,21vw,310px); aspect-ratio:4/5; object-fit:cover; pointer-events:none; opacity:0; transform:translate(-50%,-50%) rotate(calc(-2.5deg + var(--pv,0deg))) scale(.96); clip-path:inset(0 0 100% 0); transition:opacity .35s ease, transform .45s cubic-bezier(.2,.7,.2,1), clip-path .55s cubic-bezier(.76,0,.24,1); }
+  .preview.show{ opacity:1; transform:translate(-50%,-50%) rotate(calc(-2.5deg + var(--pv,0deg))) scale(1); clip-path:inset(0 0 0% 0) }
 
   /* ===== about ===== */
   .about{ display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); gap:clamp(28px,5vw,80px); align-items:start }
-  .about .portrait{ width:100%; aspect-ratio:3/4; object-fit:cover; filter:grayscale(.8) contrast(1.02); box-shadow:14px 14px 0 -1px var(--paper), 14px 14px 0 0 var(--cinnabar); transition:filter .8s ease, box-shadow .6s ease }
+  .about .portrait{ width:100%; aspect-ratio:3/4; display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(4,1fr); overflow:hidden; filter:grayscale(.8) contrast(1.02); box-shadow:14px 14px 0 -1px var(--paper), 14px 14px 0 0 var(--cinnabar); transition:filter .8s ease, box-shadow .6s ease }
   .about .portrait:hover{ filter:none; box-shadow:7px 7px 0 -1px var(--paper), 7px 7px 0 0 var(--cinnabar) }
+  .portrait i{ background-size:300% 400%; background-repeat:no-repeat; opacity:0; transform:scale(1.16); transition:opacity .6s ease var(--md,0s), transform 1s cubic-bezier(.2,.7,.2,1) var(--md,0s) }
+  .about.in .portrait i{ opacity:1; transform:none }
+  .about .bio p, .about .contact>div{ opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1) }
+  .about.in .bio p, .about.in .contact>div{ opacity:1; transform:none }
+  .about.in .bio p:nth-child(1){ transition-delay:.12s } .about.in .bio p:nth-child(2){ transition-delay:.24s }
+  .about.in .contact>div:nth-child(1){ transition-delay:.36s } .about.in .contact>div:nth-child(2){ transition-delay:.44s }
+  .about.in .contact>div:nth-child(3){ transition-delay:.52s } .about.in .contact>div:nth-child(4){ transition-delay:.6s }
+  .about.in .contact>div:nth-child(5){ transition-delay:.68s }
   .bio p{ font-size:clamp(16px,1.4vw,21px); line-height:1.85; font-weight:300; margin-bottom:1.2em; max-width:46ch }
   .bio p .accent{ color:var(--cinnabar) }
   .contact{ margin-top:2.4em; border-top:1px solid var(--hair); padding-top:1.6em; display:grid; grid-template-columns:1fr 1fr; gap:1em 2em; max-width:46ch }
@@ -303,6 +311,56 @@
   .foot-hero .fh-lg{ display:block; font-size:clamp(2rem,6.5vw,5.6rem); font-weight:500; line-height:1.15; color:transparent; -webkit-text-stroke:1px var(--ink); transition:color .6s ease }
   .foot-hero:hover .fh-lg{ color:var(--cinnabar); -webkit-text-stroke:1px var(--cinnabar) }
 
+  /* ---- layout: pile (stacked polaroids) ---- */
+  .lay-pile .pile-head{ border-bottom:1px solid var(--hair); padding-bottom:clamp(18px,3vh,34px) }
+  .pile-intro{ max-width:50ch; margin-top:1.1em }
+  .pile-hint{ font-family:"EB Garamond",serif; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--acc); margin-top:1em }
+  .pile-stage{ position:relative; height:clamp(420px,64vh,700px); display:flex; align-items:center; justify-content:center; margin-top:clamp(16px,3vh,36px) }
+  .pcard{ position:absolute; width:min(76%,580px); background:#fff; padding:14px 14px 48px; box-shadow:0 18px 60px rgba(27,25,22,.25); transform:translate(var(--px),var(--py)) rotate(var(--pr)); transition:transform .55s cubic-bezier(.2,.7,.2,1), opacity .4s ease; cursor:pointer }
+  .pcard img{ width:100%; aspect-ratio:4/3; object-fit:cover; display:block; background:#e3ddcf }
+  .pcard figcaption{ position:absolute; bottom:14px; left:20px; font-family:"EB Garamond",serif; font-size:12px; letter-spacing:.24em; text-transform:uppercase; color:var(--mute) }
+  .pcard.top:hover{ transform:translate(var(--px),calc(var(--py) - 12px)) rotate(calc(var(--pr)*.4)) }
+  .pcard.fly{ transform:translate(calc(var(--px) + 75%),calc(var(--py) - 4%)) rotate(calc(var(--pr) + 16deg)); opacity:0 }
+
+  /* ===== fx: spotlight lamp ===== */
+  .spot{ position:fixed; inset:0; z-index:78; pointer-events:none; background:radial-gradient(620px circle at var(--sx,50%) var(--sy,38%), rgba(255,247,228,.09) 0%, rgba(255,247,228,0) 40%, rgba(27,25,22,.075) 100%) }
+  @media(hover:none){ .spot{ display:none } }
+
+  /* ===== fx: char reveal ===== */
+  @keyframes chup{ from{ opacity:0; transform:translateY(.55em) rotate(4deg) } }
+  .ov-title .tch{ display:inline-block; animation:chup .6s cubic-bezier(.2,.7,.2,1) backwards; animation-delay:calc(var(--k)*.045s) }
+  .word .tch{ display:inline-block; animation:chup .55s cubic-bezier(.2,.7,.2,1) backwards; animation-delay:calc(var(--k)*.07s) }
+  .shead h2 .tch{ display:inline-block; opacity:0; transform:translateY(.6em); transition:opacity .55s ease calc(var(--k)*.06s), transform .55s cubic-bezier(.2,.7,.2,1) calc(var(--k)*.06s) }
+  .shead.in h2 .tch{ opacity:1; transform:none }
+
+  /* ===== fx: grid-assemble entrance (overlay imagery) ===== */
+  .masonry img, .filmstrip img, .plate img, .read-figs .flipw, .jw-hero{ opacity:0; clip-path:inset(11% 11% 11% 11%); transform:translateY(26px) scale(.97); transition:opacity .7s ease var(--gd,0s), clip-path .9s cubic-bezier(.2,.7,.2,1) var(--gd,0s), transform .9s cubic-bezier(.2,.7,.2,1) var(--gd,0s) }
+  .masonry img.gin, .filmstrip img.gin, .plate img.gin, .read-figs .flipw.gin, .jw-hero.gin{ opacity:1; clip-path:inset(0 0 0 0); transform:none }
+
+  /* ===== fx: flip cards (reading figs) ===== */
+  .read-figs .flipw{ width:calc(50% - 7px); aspect-ratio:4/3; perspective:1100px; cursor:pointer }
+  .flipin{ position:relative; width:100%; height:100%; transform-style:preserve-3d; transition:transform .85s cubic-bezier(.2,.7,.2,1) }
+  .flipw:hover .flipin{ transform:rotateY(180deg) }
+  .flipf, .flipb{ position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden }
+  .flipf{ width:100%; height:100%; object-fit:cover; background:#e3ddcf }
+  .flipb{ transform:rotateY(180deg); background:var(--ink); color:var(--paper); display:flex; flex-direction:column; justify-content:center; gap:.9em; padding:clamp(16px,2.4vw,34px) }
+  .flipb .pl-no{ color:var(--faint); border-top-color:var(--acc) }
+  .flipb p{ font-size:clamp(14px,1.2vw,17px); line-height:1.75; font-weight:300 }
+  .flipb-hint{ font-family:"EB Garamond",serif; font-size:10px; letter-spacing:.24em; text-transform:uppercase; color:var(--mute) }
+
+  /* ===== fx: ken burns + floaty ===== */
+  .slide.on{ animation:kb 10s ease-in-out infinite alternate }
+  @keyframes kb{ from{ transform:scale(1) translate(0,0) } to{ transform:scale(1.08) translate(-1.4%,1.2%) } }
+  @keyframes floaty{ from{ transform:translateY(-7px) } to{ transform:translateY(7px) } }
+  .jw-cut{ animation:floaty 6.5s ease-in-out infinite alternate }
+  .jw-cuts .jw-cut:nth-child(2){ animation-delay:-3.2s }
+
+  /* ===== fx: tilt ===== */
+  .tilt{ will-change:transform }
+
+  /* ===== fx: magnetic ===== */
+  .nav a, .ov-close, .scroll, .flip-book, .flip-controls button, .galaxy-back{ transition:all .3s ease, transform .35s cubic-bezier(.2,.7,.2,1); will-change:transform }
+
   /* ===== lightbox ===== */
   .lightbox{ position:fixed; inset:0; z-index:75; background:rgba(18,16,12,.93); display:flex; align-items:center; justify-content:center; opacity:0; visibility:hidden; transition:opacity .35s; }
   .lightbox.open{ opacity:1; visibility:visible }
@@ -325,6 +383,8 @@
     .ch-grid{ grid-template-columns:1fr }
     .ghost{ font-size:clamp(54px,13vw,120px); bottom:3vh }
     .read-figs img{ width:100% }
+    .read-figs .flipw{ width:100% }
+    .pcard{ width:88% }
     .plate{ width:100% }
   }
   @media (max-width:620px){
@@ -343,6 +403,7 @@
   </div>
   <div class="progress" id="progress" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
+  <div class="spot" id="spot" aria-hidden="true"></div>
   <div class="topbar">
     <div class="name">沈彦祺<em>Shen Yanqi</em></div>
     <nav class="nav"><a href="#works">作品</a><a href="#about">关于</a></nav>
@@ -376,7 +437,7 @@
   <section id="about">
     <div class="shead reveal"><h2>关于</h2><span class="label">About / Contact</span></div>
     <div class="about reveal">
-      <img class="portrait" id="portrait" alt="沈彦祺">
+      <div class="portrait" id="portrait" role="img" aria-label="沈彦祺"></div>
       <div class="bio">
         <p>沈彦祺，2005 年生，浙江传媒学院文学院戏剧影视文学专业 2023 级，<span class="accent">专业年级第一</span>。我习惯在不同的媒介之间往返——写论文，也拍纪录片；做陶瓷与珠宝，也设计字体与杂志；写影评，也写代码。</p>
         <p>对我而言它们并不矛盾：每一种媒介，都是讲同一个故事的不同语法。我关心的，始终是人如何在器物、影像与文字里安放欲望与记忆。</p>
@@ -489,18 +550,21 @@
     { n:'学术论文', cat:'研究 / Research', year:'2025—2026', cover:F.pap+'6211781671248_.pic.jpg',
       desc:['四篇第一作者论文，发表于国内外期刊。','研究横跨后殖民凝视下的性别表演与权力，以及信仰、科学与媒介叙事的认识论反思。'],
       meta:['第一作者 · 4 篇','戏剧影视 / 传媒研究'],
+      figcaps:['《第一炉香》· 后殖民凝视下的欲望牢笼','From Gods to the Unknown · SHS Web of Conferences'],
       links:[['The Cage of Desire under the Postcolonial Gaze','https://www.researchgate.net/publication/392015635_The_Cage_of_Desire_under_the_Postcolonial_Gaze_Taking_the_Gender_Performance_and_Power_Game_in_The_First_Incense_Burner_as_an_Example'],['From Gods to the Unknown','https://www.shs-conferences.org/articles/shsconf/abs/2026/02/shsconf_idepmda2026_03009/shsconf_idepmda2026_03009.html']],
       gallery:[F.pap+'6211781671248_.pic.jpg',F.pap+'6221781671286_.pic_hd.jpg'] },
     { n:'MIT 科研', cat:'研究 / MIT', year:'2025', cover:F.mit+'image (1).png',
       desc:['参与 MIT「Media Psychology Online Research Seminar」科研项目，最终成绩 A+。','导师为 MIT 终身正教授 Edward Schiappa，研究方向为传媒心理学、受众心理与数字媒介、流媒体及电影。'],
       meta:['MIT · A+','导师 Edward Schiappa'],
+      figcaps:['MIT 科研项目 · 最终成绩 A+','Media Psychology Online Research Seminar'],
       gallery:[F.mit+'image (1).png',F.mit+'image (1) (1).png'] },
     { n:'影评写作', cat:'文字 / Writing', year:'2024—', cover:F.wx+'WechatIMG620.jpg',
       desc:['公众号长文影评，多篇阅读量破万。','《白日焰火》：性、欲、非人与暴力（阅读 30,659）；重读《墙头马上》（阅读 38,119）。在类型片与古典文本里，做长一点、深一点的凝视。'],
       meta:['影评 / 文化写作','单篇阅读 10万+ 累计'],
+      figcaps:['公众号长文影评 · 两篇累计阅读近 7 万'],
       links:[['《白日焰火》| 性、欲、非人与暴力','https://mp.weixin.qq.com/template/article/1781667997/index.html'],['如懿念叨一辈子的《墙头马上》','https://mp.weixin.qq.com/template/article/1781670728/index.html']],
       gallery:[F.wx+'WechatIMG620.jpg'] },
-    { n:'梅谱街采', cat:'影像 / Media', year:'2024', cover:F.mei+'6111781667781_.pic_hd.jpg',
+    { n:'梅谱街采', cat:'影像 / Media', year:'2024', cover:F.mei+'6111781667781_.pic_hd.jpg', lay:'pile',
       desc:['担任「梅谱」公众号街头采访栏目负责人。','从选题、采访到成稿，把街头真实的声音，做成一档有温度的栏目。'],
       meta:['栏目负责人','街头采访 / 新媒体'],
       gallery:G(F.mei,['6111781667781_.pic_hd.jpg','6121781667836_.pic_hd.jpg','6131781667866_.pic_hd.jpg','6141781667946_.pic_hd.jpg','6151781667967_.pic_hd.jpg','6161781667992_.pic_hd.jpg','WechatIMG617.jpg']) },
@@ -529,18 +593,18 @@
         <div class="filmband">
           <span class="ov-num">${nn(i)} — ${w.cat}</span><h1 class="ov-title">${w.n}</h1>
           ${w.video?`<video class="cine-video" controls preload="none" poster="${enc(w.vposter||w.cover)}"><source src="${enc(w.video)}" type="video/mp4"></video>`:''}
-          <div class="filmstrip">${imgs(w.gallery)}</div>
+          <div class="filmstrip">${imgs(w.gallery,' class="tilt"')}</div>
         </div>
         <div class="cine-text">${psBlock(w)}${metaBlock(w)}${linkBlock(w)}</div>
       </section>`,
     object:(w,i)=>`<section class="lay-object">
         <div class="obj-head"><span class="ov-num">${nn(i)} — ${w.cat}</span><h1 class="ov-title">${w.n}</h1></div>
         <div class="obj-intro">${psBlock(w)}${metaBlock(w)}${linkBlock(w)}</div>
-        <div class="plates">${(w.gallery||[]).map((g,k)=>`<figure class="plate"><img loading="lazy" src="${enc(g)}" alt=""><figcaption><span class="pl-no">图 ${nn(k)} · Plate</span></figcaption></figure>`).join('')}</div>
+        <div class="plates">${(w.gallery||[]).map((g,k)=>`<figure class="plate" data-para="${k===0?'0.035':(k%2?'-0.05':'0.06')}"><img class="tilt tilt-soft" loading="lazy" src="${enc(g)}" alt=""><figcaption><span class="pl-no">图 ${nn(k)} · Plate</span></figcaption></figure>`).join('')}</div>
       </section>`,
     gallery:(w,i)=>`<section class="lay-gallery">
         <div class="gal-bar"><span class="ov-num">${nn(i)} — ${w.cat}</span><h1 class="ov-title">${w.n}</h1><div class="gal-side">${psBlock(w)}${metaBlock(w)}${linkBlock(w)}</div></div>
-        <div class="masonry">${imgs(w.gallery)}</div>
+        <div class="masonry">${imgs(w.gallery,' class="tilt"')}</div>
       </section>`,
     specimen:(w,i)=>`<section class="lay-specimen">
         <span class="ov-num">${nn(i)} — ${w.cat}</span>
@@ -588,7 +652,7 @@
         <div class="jw-culture">${w.culture.map(p=>`<p>${p}</p>`).join('')}</div>
         <div class="jw-heroes">${heroes}</div>
         <div class="jw-beltwrap"><p class="jw-belt-label">模特演绎 · 传送带轮转 · 点击放大</p><div class="belt"><div class="belt-track">${cards}${cards}</div></div></div>
-        <div class="jw-cert"><img loading="lazy" src="${enc(w.cert)}" alt="获奖证书"><span>《灵蛇护宝》获奖证书</span></div>
+        <div class="jw-cert"><img class="tilt" loading="lazy" src="${enc(w.cert)}" alt="获奖证书"><span>《灵蛇护宝》获奖证书</span></div>
       </section>`; },
     flip:(w,i)=>{
       const books=w.books.map((b,bi)=>`<button class="flip-book${bi===0?' on':''}" data-dir="${b.dir}" data-pages="${b.pages}">${b.name} · ${b.pages} 页</button>`).join('');
@@ -608,11 +672,18 @@
         <div class="sl-stage">${imgs}<button class="sl-prev" aria-label="上一张">‹</button><button class="sl-next" aria-label="下一张">›</button></div>
         <div class="sl-dots">${dots}</div>
       </section>`; },
+    pile:(w,i)=>{
+      const cards=w.gallery.map((g,k)=>`<figure class="pcard" style="--pr:${((k*47)%13-6)}deg;--px:${((k*31)%25-12)}px;--py:${((k*19)%17-8)}px"><img loading="lazy" src="${enc(g)}" alt=""><figcaption>Street No.${nn(k)} · 梅谱</figcaption></figure>`).join('');
+      return `<section class="lay-pile">
+        <div class="pile-head"><span class="ov-num">${nn(i)} — ${w.cat}</span><h1 class="ov-title">${w.n}</h1></div>
+        <div class="pile-intro">${psBlock(w)}${metaBlock(w)}<p class="pile-hint">点击照片 · 翻到下一张</p></div>
+        <div class="pile-stage">${cards}</div>
+      </section>`; },
     channel:(w,i)=>`<section class="lay-channel">
         <div class="ch-head"><span class="ov-num">${nn(i)} — ${w.cat}</span><h1 class="ov-title">${w.n}</h1></div>
         <div class="ch-grid">
           <div>${psBlock(w)}${metaBlock(w)}${linkBlock(w)}<span class="ch-badge"><i></i>持续更新中 · Now streaming</span></div>
-          <figure class="ch-card"><img src="${enc(w.qr)}" alt="视频号二维码"><figcaption class="ch-scan">微信「扫一扫」· 关注视频号</figcaption></figure>
+          <figure class="ch-card tilt"><img src="${enc(w.qr)}" alt="视频号二维码"><figcaption class="ch-scan">微信「扫一扫」· 关注视频号</figcaption></figure>
         </div>
       </section>`,
     reading:(w,i)=>{ const d0=w.desc[0]||''; return `<section class="lay-reading">
@@ -621,7 +692,7 @@
           <p class="ov-p"><span class="dropcap">${d0.slice(0,1)}</span>${d0.slice(1)}</p>
           ${w.desc.slice(1).map(p=>`<p class="ov-p">${p}</p>`).join('')}
           ${metaBlock(w)}${linkBlock(w)}
-          ${(w.gallery&&w.gallery.length)?`<div class="read-figs">${imgs(w.gallery)}</div>`:''}
+          ${(w.gallery&&w.gallery.length)?`<div class="read-figs">${w.gallery.map((g,k)=>`<div class="flipw tilt"><div class="flipin"><img class="flipf" loading="lazy" src="${enc(g)}" alt=""><div class="flipb"><span class="pl-no">Fig. ${nn(k)}</span><p>${(w.figcaps&&w.figcaps[k])||w.n}</p><span class="flipb-hint">点击放大 · Click to enlarge</span></div></div></div>`).join('')}</div>`:''}
         </div>
       </section>`; }
   };
@@ -637,9 +708,9 @@
   });
 
   /* ---- floating preview ---- */
-  const prev=document.getElementById('preview'); let curCover='';
+  const prev=document.getElementById('preview'); let curCover='', pvT=0;
   list.addEventListener('pointerover',e=>{ const r=e.target.closest('.row'); if(!r)return; const w=works[+r.dataset.i]; if(curCover!==w.cover){curCover=w.cover; prev.src=enc(w.cover);} prev.classList.add('show'); });
-  list.addEventListener('pointermove',e=>{ prev.style.left=e.clientX+'px'; prev.style.top=e.clientY+'px'; });
+  list.addEventListener('pointermove',e=>{ prev.style.left=e.clientX+'px'; prev.style.top=e.clientY+'px'; pvT=Math.max(-7,Math.min(7,e.movementX*.5)); });
   list.addEventListener('pointerout',e=>{ if(!e.relatedTarget||!e.relatedTarget.closest('.row')) prev.classList.remove('show'); });
 
   /* ---- overlay ---- */
@@ -650,12 +721,20 @@
     ovInner.innerHTML=(LAY[lay]||LAY.reading)(w,i);
     if(lay==='flip') initFlip(ovInner);
     if(lay==='slides') initSlides(ovInner);
+    if(lay==='pile') initPile(ovInner);
+    initFx();
     overlay.classList.add('open'); overlay.scrollTop=0; document.body.style.overflow='hidden';
   }
   function closeWork(){ overlay.classList.remove('open'); document.body.style.overflow=''; }
   list.addEventListener('click',e=>{ const r=e.target.closest('.row'); if(r) openWork(+r.dataset.i); });
   document.getElementById('ovClose').addEventListener('click',closeWork);
-  document.getElementById('portrait').src=enc(F.me+'我的照片1.JPG');
+
+  /* ---- portrait: mosaic assemble ---- */
+  (()=>{ const por=document.getElementById('portrait'), url=enc(F.me+'我的照片1.JPG'); let h='';
+    const seq=[7,2,10,5,0,9,4,11,1,8,3,6];   // 打乱的拼合顺序
+    for(let r=0;r<4;r++) for(let c=0;c<3;c++){ const k=r*3+c;
+      h+=`<i style="background-image:url('${url}');background-position:${c*50}% ${(r*100/3).toFixed(2)}%;--md:${seq.indexOf(k)*70}ms"></i>`; }
+    por.innerHTML=h; })();
 
   /* ---- lightbox (click any image to enlarge) ---- */
   const lb=document.getElementById('lightbox'), lbImg=document.getElementById('lbImg'), lbCount=document.getElementById('lbCount');
@@ -676,10 +755,43 @@
       else { sp.querySelectorAll('.star.active').forEach(s=>{s.classList.remove('active');const p=s.querySelector('.psys');if(p)p.style.opacity='';}); star.classList.add('active'); sp.classList.add('open'); if(ps)ps.style.opacity='1'; }
       return; }
     if(e.target.closest('.flip-img')) return;
-    const im=e.target.closest('img'); if(!im) return;
+    if(e.target.closest('.pcard')) return;
+    const fw=e.target.closest('.flipw');
+    const im=fw?fw.querySelector('img'):e.target.closest('img'); if(!im) return;
     const seen=new Set(), uniq=[]; ovInner.querySelectorAll('img').forEach(x=>{ const s=x.currentSrc||x.src; if(!seen.has(s)){seen.add(s);uniq.push(s);} });
     openLB(uniq, uniq.indexOf(im.currentSrc||im.src));
   });
+  function initPile(root){
+    const stage=root.querySelector('.pile-stage'); let order=[...stage.querySelectorAll('.pcard')], busy=false;
+    const restack=()=>order.forEach((el,k)=>{ el.style.zIndex=order.length-k; el.classList.toggle('top',k===0); });
+    restack();
+    stage.addEventListener('click',e=>{ const c=e.target.closest('.pcard'); if(!c||busy) return;
+      if(c!==order[0]) return;
+      busy=true; c.classList.add('fly');
+      setTimeout(()=>{ order.push(order.shift()); restack(); c.classList.remove('fly'); busy=false; },460);
+    });
+  }
+
+  /* ---- fx engine: char titles / grid entrance / parallax ---- */
+  const splitChars=el=>{ if(!el) return; el.innerHTML=[...el.textContent].map((c,k)=>`<span class="tch" style="--k:${k}">${c===' '?'&nbsp;':c}</span>`).join(''); };
+  document.querySelectorAll('.shead h2').forEach(splitChars);
+  function initFx(){
+    splitChars(ovInner.querySelector('.ov-title'));
+    const ents=[...ovInner.querySelectorAll('.masonry img,.filmstrip img,.plate img,.read-figs .flipw,.jw-hero')];
+    if(ents.length){
+      const gio=new IntersectionObserver(es=>{ es.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('gin'); gio.unobserve(en.target); } }); },{root:overlay,threshold:.05});
+      ents.forEach((el,k)=>{ el.style.setProperty('--gd',((k%9)*50)+'ms'); gio.observe(el); });
+    }
+    const paras=[...ovInner.querySelectorAll('[data-para]')];
+    if(paras.length && !matchMedia('(prefers-reduced-motion:reduce)').matches){
+      paras.forEach(el=>el._ty=0);
+      overlay.onscroll=()=>{ requestAnimationFrame(()=>{ const vh=innerHeight;
+        paras.forEach(el=>{ const r=el.getBoundingClientRect(); if(r.bottom<-300||r.top>vh+300) return;
+          const c=r.top+r.height/2-el._ty; const ty=(vh/2-c)*parseFloat(el.dataset.para);
+          el._ty=ty; el.style.transform='translateY('+ty.toFixed(1)+'px)'; }); }); };
+    } else overlay.onscroll=null;
+    if(window._refreshMagnets) window._refreshMagnets();
+  }
   function initFlip(root){
     const wrap=root.querySelector('.flip-stage-wrap'), cnt=root.querySelector('.flip-count'), books=[...root.querySelectorAll('.flip-book')];
     let pf=null, total=0, curEl=null;
@@ -733,10 +845,38 @@
 
   /* ---- custom cursor ---- */
   if(matchMedia('(hover:hover)').matches){
-    const cur=document.getElementById('cursor');
-    let cmx=0,cmy=0,ccx=0,ccy=0,curInit=false;
+    const cur=document.getElementById('cursor'), spotEl=document.getElementById('spot');
+    let cmx=0,cmy=0,ccx=0,ccy=0,curInit=false,pvC=0;
+    let sx=innerWidth/2, sy=innerHeight*.38;
     addEventListener('pointermove',e=>{ document.body.classList.add('curon'); cmx=e.clientX; cmy=e.clientY; if(!curInit){ccx=cmx;ccy=cmy;curInit=true;} });
-    (function cloop(){ ccx+=(cmx-ccx)*.22; ccy+=(cmy-ccy)*.22; cur.style.left=ccx+'px'; cur.style.top=ccy+'px'; requestAnimationFrame(cloop); })();
+
+    /* magnetic elements */
+    const MAGSEL='.nav a,.ov-close,.scroll,.flip-book,.flip-controls button,.galaxy-back';
+    let magnets=[...document.querySelectorAll(MAGSEL)];
+    window._refreshMagnets=()=>{ magnets=[...document.querySelectorAll(MAGSEL)]; };
+
+    (function cloop(){
+      ccx+=(cmx-ccx)*.22; ccy+=(cmy-ccy)*.22; cur.style.left=ccx+'px'; cur.style.top=ccy+'px';
+      sx+=(cmx-sx)*.09; sy+=(cmy-sy)*.09; spotEl.style.setProperty('--sx',sx.toFixed(0)+'px'); spotEl.style.setProperty('--sy',sy.toFixed(0)+'px');
+      pvT*=.92; pvC+=(pvT-pvC)*.15; prev.style.setProperty('--pv',pvC.toFixed(2)+'deg');
+      magnets.forEach(m=>{ const r=m.getBoundingClientRect(); if(!r.width){ if(m._mg){m.style.transform='';m._mg=0;} return; }
+        const dx=cmx-(r.left+r.width/2), dy=cmy-(r.top+r.height/2);
+        if(Math.hypot(dx,dy) < Math.max(r.width,r.height)/2+54){ m.style.transform=`translate(${(dx*.32).toFixed(1)}px,${(dy*.32).toFixed(1)}px)`; m._mg=1; }
+        else if(m._mg){ m.style.transform=''; m._mg=0; } });
+      requestAnimationFrame(cloop);
+    })();
+
+    /* 3D tilt (delegated) */
+    document.addEventListener('pointerover',e=>{ const t=e.target.closest('.tilt'); if(!t||t._tilt) return; t._tilt=1;
+      const soft=t.classList.contains('tilt-soft'), max=soft?4:9;
+      const mv=ev=>{ const r=t.getBoundingClientRect(); const px=(ev.clientX-r.left)/r.width-.5, py=(ev.clientY-r.top)/r.height-.5;
+        t.style.transition='transform .12s ease-out';
+        t.style.transform=`perspective(950px) rotateX(${(-py*max).toFixed(2)}deg) rotateY(${(px*max).toFixed(2)}deg) scale(${soft?1.015:1.045})`; t.style.zIndex=6; };
+      const lv=()=>{ t.removeEventListener('pointermove',mv); t.removeEventListener('pointerleave',lv);
+        t.style.transition='transform .7s cubic-bezier(.2,.7,.2,1)'; t.style.transform=''; t._tilt=0;
+        setTimeout(()=>{ if(!t._tilt){ t.style.zIndex=''; t.style.transition=''; } },720); };
+      t.addEventListener('pointermove',mv); t.addEventListener('pointerleave',lv); mv(e);
+    });
     const hot='.row, a, .scroll, .roster span, .ov-close, .nav a, .card3d, .star, .planet2, .belt-card, .slide, .flip-book, .flip-prev, .flip-next, .sl-prev, .sl-next, .slide-dot, .jw-cut, .jw-hero, .jw-cert img, .masonry img, .plate img, .spec-grid img, .read-figs img, .filmstrip img, .lb-prev, .lb-next, .lb-close';
     addEventListener('pointerover',e=>{ const h=e.target.closest(hot); if(h){ cur.classList.add('big'); const r=h.closest('.row'); cur.style.color=r?getComputedStyle(r).getPropertyValue('--racc'):'var(--ink)'; } });
     addEventListener('pointerout',e=>{ if(e.target.closest(hot)) cur.classList.remove('big'); });
@@ -746,18 +886,20 @@
   const roles=["导演","编剧","陶艺","珠宝","字体","绘画","学者","写作","博主"];
   const rosterNames=["导演","编剧","陶艺人","珠宝设计","字体设计","画者","学者","写作者","自媒体博主"];
   const wordEl=document.getElementById('word'), slot=wordEl.parentElement, rosterEl=document.getElementById('roster');
+  const setWord=t=>{ wordEl.innerHTML=[...t].map((c,k)=>`<span class="tch" style="--k:${k}">${c}</span>`).join(''); };
+  setWord(roles[0]);
   rosterNames.forEach((r,i)=>{ const s=document.createElement('span'); s.textContent=r; s.dataset.i=i; if(i===0)s.classList.add('on'); rosterEl.appendChild(s); });
   const rspans=[...rosterEl.children]; let idx=0; const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
   const mark=n=>rspans.forEach(s=>s.classList.toggle('on',+s.dataset.i===n));
   function tick(){ const next=(idx+1)%roles.length;
-    if(reduce){ wordEl.textContent=roles[next]; mark(next); idx=next; return; }
+    if(reduce){ setWord(roles[next]); mark(next); idx=next; return; }
     slot.classList.add('swap');
-    setTimeout(()=>{ wordEl.textContent=roles[next]; slot.classList.remove('swap'); slot.classList.add('enter'); void slot.offsetWidth; slot.classList.remove('enter'); mark(next); idx=next; },520);
+    setTimeout(()=>{ setWord(roles[next]); slot.classList.remove('swap'); slot.classList.add('enter'); void slot.offsetWidth; slot.classList.remove('enter'); mark(next); idx=next; },520);
   }
   let timer=setInterval(tick,2400);
   rosterEl.addEventListener('pointerenter',()=>clearInterval(timer));
   rosterEl.addEventListener('pointerleave',()=>timer=setInterval(tick,2400));
-  rosterEl.addEventListener('click',e=>{ const t=e.target.closest('span'); if(!t)return; const n=+t.dataset.i; wordEl.textContent=roles[n]; mark(n); idx=n; });
+  rosterEl.addEventListener('click',e=>{ const t=e.target.closest('span'); if(!t)return; const n=+t.dataset.i; setWord(roles[n]); mark(n); idx=n; });
   let raf; addEventListener('pointermove',e=>{ if(reduce)return; cancelAnimationFrame(raf);
     raf=requestAnimationFrame(()=>{ const r=wordEl.getBoundingClientRect(), cx=r.left+r.width/2, cy=r.top+r.height/2; const k=Math.max(0,1-Math.hypot(e.clientX-cx,e.clientY-cy)/700); wordEl.style.fontWeight=Math.round(400+k*500); wordEl.style.letterSpacing=(k*0.04).toFixed(3)+'em'; });
   });
