@@ -316,8 +316,8 @@
   .pile-intro{ max-width:50ch; margin-top:1.1em }
   .pile-hint{ font-family:"EB Garamond",serif; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--acc); margin-top:1em }
   .pile-stage{ position:relative; height:clamp(420px,64vh,700px); display:flex; align-items:center; justify-content:center; margin-top:clamp(16px,3vh,36px) }
-  .pcard{ position:absolute; width:min(76%,580px); background:#fff; padding:14px 14px 48px; box-shadow:0 18px 60px rgba(27,25,22,.25); transform:translate(var(--px),var(--py)) rotate(var(--pr)); transition:transform .55s cubic-bezier(.2,.7,.2,1), opacity .4s ease; cursor:pointer }
-  .pcard img{ width:100%; aspect-ratio:4/3; object-fit:cover; display:block; background:#e3ddcf }
+  .pcard{ position:absolute; width:min(58%,430px); background:#fff; padding:12px 12px 44px; box-shadow:0 18px 60px rgba(27,25,22,.25); transform:translate(var(--px),var(--py)) rotate(var(--pr)); transition:transform .55s cubic-bezier(.2,.7,.2,1), opacity .4s ease; cursor:pointer }
+  .pcard img{ width:100%; height:auto; max-height:52vh; object-fit:contain; display:block; background:#fff }
   .pcard figcaption{ position:absolute; bottom:14px; left:20px; font-family:"EB Garamond",serif; font-size:12px; letter-spacing:.24em; text-transform:uppercase; color:var(--mute) }
   .pcard.top:hover{ transform:translate(var(--px),calc(var(--py) - 12px)) rotate(calc(var(--pr)*.4)) }
   .pcard.fly{ transform:translate(calc(var(--px) + 75%),calc(var(--py) - 4%)) rotate(calc(var(--pr) + 16deg)); opacity:0 }
@@ -498,7 +498,7 @@
       gallery:[F.die+'剧照1.JPG',F.die+'剧照2.JPG',F.die+'剧照3.JPG',F.die+'剧照4.JPG',F.die+'剧照5.JPG',F.die+'剧照6.JPG',F.die+'入围证书.jpg'] },
     { n:'前月浮梁采茶去', cat:'纪录片 / Film', year:'2026', cover:F.cha+'海报竖.jpg', vposter:F.cha+'海报横.jpg',
       desc:['「商人重利轻别离，前月浮梁买茶去。」——白居易在《琵琶行》里随手留下的一个地名，一千二百年后，我们带着摄影机走了进去。','我执导的茶文化纪录片。跟着采茶人走进景德镇浮梁的山场与茶季，在雾气、露水和手指的重复动作里，记录一杯茶最初的样子——只是这一次，「买茶」变成了「采茶」。'],
-      meta:['导演 / Director','联合导演 · 宋志豪','浮梁 · 2026'],
+      meta:['导演 / Director','浮梁 · 2026'],
       video:F.cha+'纪录片.mp4',
       gallery:[F.cha+'海报竖.jpg',F.cha+'海报横.jpg'] },
     { n:'鈺瓷士', cat:'网站 / Website', year:'2026', cover:F.mag+'鈺瓷士.pdf.png',
@@ -673,7 +673,7 @@
         <div class="sl-dots">${dots}</div>
       </section>`; },
     pile:(w,i)=>{
-      const cards=w.gallery.map((g,k)=>`<figure class="pcard" style="--pr:${((k*47)%13-6)}deg;--px:${((k*31)%25-12)}px;--py:${((k*19)%17-8)}px"><img loading="lazy" src="${enc(g)}" alt=""><figcaption>Street No.${nn(k)} · 梅谱</figcaption></figure>`).join('');
+      const cards=w.gallery.map((g,k)=>`<figure class="pcard" style="--pr:${((k*47)%13-6)}deg;--px:${((k*31)%25-12)}px;--py:${((k*19)%17-8)}px"><img src="${enc(g)}" alt=""><figcaption>Street No.${nn(k)} · 梅谱</figcaption></figure>`).join('');
       return `<section class="lay-pile">
         <div class="pile-head"><span class="ov-num">${nn(i)} — ${w.cat}</span><h1 class="ov-title">${w.n}</h1></div>
         <div class="pile-intro">${psBlock(w)}${metaBlock(w)}<p class="pile-hint">点击照片 · 翻到下一张</p></div>
