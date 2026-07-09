@@ -296,6 +296,17 @@
   .stage{ position:relative }
   .ghost{ position:absolute; right:-1vw; bottom:5vh; font-family:"EB Garamond",serif; font-size:clamp(70px,15vw,220px); line-height:1; color:transparent; -webkit-text-stroke:1px rgba(27,25,22,.09); letter-spacing:.02em; pointer-events:none; user-select:none; white-space:nowrap; will-change:transform }
 
+  /* ===== mascot: 蛟龙镇站 ===== */
+  .hero{ position:relative; z-index:2 }
+  .mascot{ position:absolute; right:3vw; bottom:11vh; width:clamp(210px,23vw,380px); aspect-ratio:380/460; z-index:1; cursor:pointer; mix-blend-mode:multiply }
+  .mascot .mbob{ position:absolute; inset:0; animation:floaty 7s ease-in-out infinite alternate }
+  .mascot .mrot{ position:absolute; inset:0; transition:transform .35s ease-out; will-change:transform }
+  .mascot .mview{ position:absolute; inset:0; width:100%; height:100%; opacity:0; transition:opacity .38s ease; pointer-events:none }
+  .mascot .mview.on{ opacity:1 }
+  .mascot-shadow{ position:absolute; left:14%; right:14%; bottom:-1.5%; height:5.5%; background:radial-gradient(50% 50% at 50% 50%, rgba(27,25,22,.28), rgba(27,25,22,0) 72%); filter:blur(3px) }
+  .mascot-tag{ position:absolute; bottom:-2.4em; left:50%; transform:translateX(-50%); white-space:nowrap; opacity:0; transition:opacity .4s ease }
+  .mascot:hover .mascot-tag{ opacity:1 }
+
   /* ===== tape marquee ===== */
   .tape{ overflow:hidden; border-top:1px solid var(--hair); border-bottom:1px solid var(--hair); padding:clamp(14px,2vh,24px) 0 }
   .tape-track{ display:flex; align-items:baseline; width:max-content; animation:tape 30s linear infinite; will-change:transform }
@@ -385,6 +396,8 @@
     .read-figs img{ width:100% }
     .read-figs .flipw{ width:100% }
     .pcard{ width:88% }
+    .mascot{ width:42vw; right:1vw; bottom:9vh }
+    .mascot-tag{ display:none }
     .plate{ width:100% }
   }
   @media (max-width:620px){
@@ -425,6 +438,16 @@
       <div class="scroll" onclick="document.getElementById('works').scrollIntoView()">向下 · 16 件作品 <i></i></div>
     </div>
     <span class="ghost" id="ghost" aria-hidden="true">SHEN YANQI</span>
+    <div class="mascot" id="mascot" title="蝶戏蛟龙 · 点击入场">
+      <span class="mascot-shadow" aria-hidden="true"></span>
+      <div class="mbob"><div class="mrot" id="mrot">
+        <img class="mview on" data-v="front" src="min/素材/吉祥物/front.jpg" alt="蛟龙雕塑 正面">
+        <img class="mview" data-v="left"  src="min/素材/吉祥物/left.jpg"  alt="">
+        <img class="mview" data-v="right" src="min/素材/吉祥物/right.jpg" alt="">
+        <img class="mview" data-v="rear"  src="min/素材/吉祥物/rear.jpg"  alt="">
+      </div></div>
+      <span class="mascot-tag label">蝶戏蛟龙 · 镇站之兽 · 点击入场</span>
+    </div>
   </main>
 
   <div class="tape" aria-hidden="true"><div class="tape-track" id="tapeTrack"></div></div>
@@ -478,7 +501,7 @@
     pap:'素材/4篇国内外论文一作/', mit:'素材/MIT科研项目A+成绩/',
     wx :'素材/公众号文章：《白日焰火》|  性、欲、非人与暴力（浏览量30659）；如懿念叨了一辈子的《墙头马上》真是讲的爱情吗？（浏览量38119）/',
     mei:'素材/“梅谱”公众号街头采访栏目负责人/', ins:'素材/影石线上实习爆款短视频创作者/', cup:'素材/2026年“挑战杯”浙江省银奖负责人/', me :'素材/基本信息/',
-    cha:'素材/导演《前月浮梁采茶去》纪录片/', yq :'素材/自媒体博主“彦祺_Yanqi”/'
+    cha:'素材/导演《前月浮梁采茶去》纪录片/', yq :'素材/自媒体博主“彦祺_Yanqi”/', mas:'素材/吉祥物/'
   };
   const G=(b,a)=>a.map(n=>b+n);
   const THEME = {
@@ -495,7 +518,7 @@
       desc:['我执导的纪录片，入围 2025 年澳门国际微电影节。','影片以陶瓷文化为题，在窑火与匠人之间，寻找一种当代的东方叙事。我同时为它做了一支同名互动小游戏，让观众用另一种方式走进这个故事。'],
       meta:['导演 / Director','入围 · 2025 澳门国际微电影节'], links:[['观看互动小游戏','https://diexijiaolonggame.netlify.app/']],
       video:F.die+'纪录片.mp4',
-      gallery:[F.die+'剧照1.JPG',F.die+'剧照2.JPG',F.die+'剧照3.JPG',F.die+'剧照4.JPG',F.die+'剧照5.JPG',F.die+'剧照6.JPG',F.die+'入围证书.jpg'] },
+      gallery:[F.die+'剧照1.JPG',F.die+'剧照2.JPG',F.die+'剧照3.JPG',F.die+'剧照4.JPG',F.die+'剧照5.JPG',F.die+'剧照6.JPG',F.mas+'主图.jpg',F.die+'入围证书.jpg'] },
     { n:'前月浮梁采茶去', cat:'纪录片 / Film', year:'2026', cover:F.cha+'海报竖.jpg', vposter:F.cha+'海报横.jpg',
       desc:['「商人重利轻别离，前月浮梁买茶去。」——白居易在《琵琶行》里随手留下的一个地名，一千二百年后，我们带着摄影机走了进去。','我执导的茶文化纪录片。跟着采茶人走进景德镇浮梁的山场与茶季，在雾气、露水和手指的重复动作里，记录一杯茶最初的样子——只是这一次，「买茶」变成了「采茶」。'],
       meta:['导演 / Director','浮梁 · 2026'],
@@ -877,7 +900,7 @@
         setTimeout(()=>{ if(!t._tilt){ t.style.zIndex=''; t.style.transition=''; } },720); };
       t.addEventListener('pointermove',mv); t.addEventListener('pointerleave',lv); mv(e);
     });
-    const hot='.row, a, .scroll, .roster span, .ov-close, .nav a, .card3d, .star, .planet2, .belt-card, .slide, .flip-book, .flip-prev, .flip-next, .sl-prev, .sl-next, .slide-dot, .jw-cut, .jw-hero, .jw-cert img, .masonry img, .plate img, .spec-grid img, .read-figs img, .filmstrip img, .lb-prev, .lb-next, .lb-close';
+    const hot='.mascot, .row, a, .scroll, .roster span, .ov-close, .nav a, .card3d, .star, .planet2, .belt-card, .slide, .flip-book, .flip-prev, .flip-next, .sl-prev, .sl-next, .slide-dot, .jw-cut, .jw-hero, .jw-cert img, .masonry img, .plate img, .spec-grid img, .read-figs img, .filmstrip img, .lb-prev, .lb-next, .lb-close';
     addEventListener('pointerover',e=>{ const h=e.target.closest(hot); if(h){ cur.classList.add('big'); const r=h.closest('.row'); cur.style.color=r?getComputedStyle(r).getPropertyValue('--racc'):'var(--ink)'; } });
     addEventListener('pointerout',e=>{ if(e.target.closest(hot)) cur.classList.remove('big'); });
   }
@@ -903,6 +926,31 @@
   let raf; addEventListener('pointermove',e=>{ if(reduce)return; cancelAnimationFrame(raf);
     raf=requestAnimationFrame(()=>{ const r=wordEl.getBoundingClientRect(), cx=r.left+r.width/2, cy=r.top+r.height/2; const k=Math.max(0,1-Math.hypot(e.clientX-cx,e.clientY-cy)/700); wordEl.style.fontWeight=Math.round(400+k*500); wordEl.style.letterSpacing=(k*0.04).toFixed(3)+'em'; });
   });
+
+  /* ===== mascot: 蛟龙随鼠标转向 ===== */
+  (()=>{
+    const mas=document.getElementById('mascot'), rot=document.getElementById('mrot');
+    const show=v=>mas.querySelectorAll('.mview').forEach(m=>m.classList.toggle('on',m.dataset.v===v));
+    if(matchMedia('(hover:hover)').matches){
+      let mtLast=0;
+      addEventListener('pointermove',e=>{
+        const now=performance.now(); if(now-mtLast<40) return; mtLast=now;   // ~25fps 足够
+        const r=mas.getBoundingClientRect();
+        if(r.bottom<0||r.top>innerHeight) return;               // 首屏外不计算
+        const dx=(e.clientX-(r.left+r.width/2))/(innerWidth*.5);
+        const dy=(e.clientY-(r.top+r.height/2))/innerHeight;
+        let v='front';
+        if(dx<-1.15) v='rear'; else if(dx<-0.22) v='left'; else if(dx>0.14) v='right';
+        show(v);
+        const yaw=Math.max(-1,Math.min(1,dx))*10;
+        rot.style.transform=`rotateY(${yaw.toFixed(1)}deg) translate(${(Math.max(-1,Math.min(1,dx))*7).toFixed(1)}px,${(Math.max(-.6,Math.min(.6,dy))*8).toFixed(1)}px)`;
+      },{passive:true});
+    } else {
+      const cyc=['front','right','rear','left']; let mk=0;
+      setInterval(()=>{ mk=(mk+1)%cyc.length; show(cyc[mk]); },2600);
+    }
+    mas.addEventListener('click',()=>openWork(0));
+  })();
 
   /* ===== intro curtain ===== */
   const intro=document.getElementById('intro'), iname=document.getElementById('iname');
